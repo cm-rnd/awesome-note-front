@@ -31,6 +31,6 @@
       "@pages/*": ["pages/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/apis/api"],
   "exclude": ["node_modules"]
 }
