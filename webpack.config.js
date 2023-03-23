@@ -38,6 +38,8 @@ module.exports = {
     },
   },
   devServer: {
+    historyApiFallback: true,
+
     client: {
       overlay: true,
       progress: true,

@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+function Note() {
+  return <div>I'm Note</div>;
+}
+
+export default Note;
+
 /*
 
 

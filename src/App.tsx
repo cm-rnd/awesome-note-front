@@ -70,6 +70,7 @@ const App = () => {
       <div>
         <GlobalStyle />
         <LsbComponent />
+
         <Outlet />
       </div>
     </>

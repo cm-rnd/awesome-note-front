@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUpload } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { useQuery, useMutation } from "react-query";
+import { fetchTeams } from "src/apis/Api";
 
 const Container = styled.div`
   display: flex;
@@ -33,6 +35,11 @@ const Items = styled.ul`
   flex-direction: column;
 `;
 
+const Loader = styled.span`
+  text-align: center;
+  display: block;
+`;
+
 const Item = styled.li`
   display: flex;
   align-items: center;
@@ -41,13 +48,44 @@ const Item = styled.li`
   font-size: 25px;
 `;
 
+interface InterfaceTeam {
+  id: string;
+  name: string;
+}
+
+const isLoading = false;
+
+const data = [
+  {
+    id: 1,
+    name: "CM 1-1",
+  },
+  {
+    id: 1,
+    name: "CM 1-2",
+  },
+  {
+    id: 3,
+    name: "CM 1-3",
+    "": {},
+  },
+];
+
 function TeamNote() {
+  /* const { isLoading, data } = useMutation<InterfaceTeam>(["teamInfo"], fetchTeams);
+   */
+
   return (
     <TeamContainer>
       <Title>TeamNote</Title>
       <Items>
-        <Item>CM 1-1</Item>
-        <Item>CM 1-2</Item>
+        {data?.map((team: any) => (
+          <Item key={team.id}>
+            <Link to={`/${team.id}`} state={team}>
+              {team.name}
+            </Link>
+          </Item>
+        ))}
       </Items>
     </TeamContainer>
   );
