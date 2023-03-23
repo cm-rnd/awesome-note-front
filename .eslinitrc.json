@@ -1,0 +1,79 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "jest": true,
+    "es2021": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "ignorePatterns": ["webpack.config.js", "jest.config.ts", "setupTests.ts"],
+  "extends": [
+    "airbnb",
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint",
+    "recommended-requiring-type-checking",
+    "plugin:prettier/recommended",
+    "plugin:jest/recommended",
+    "plugin:react/recommended"
+  ],
+  "plugins": ["prettier", "@typescript-eslint", "import", "jest"],
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
+  "rules": {
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal"],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "mobx",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "mobx-react-lite",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "@stores/**",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "@shared/**",
+            "group": "internal",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": [],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
+  }
+}
