@@ -22,15 +22,22 @@
     "isolatedModules": true,
     "strict": true,
     "moduleResolution": "node",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@components/*": ["components/*"],
-      "@pages/*": ["pages/*"]
+      "@/*": ["./src/*"],
+      "@apis/*": ["./src/apis/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@components/*": ["./src/components/*"],
+      "@interfaces/*": ["./src/interfaces/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@stores/*": ["./src/stores/*"],
+      "@tests/*": ["./src/tests/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/apis/api"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]
 }

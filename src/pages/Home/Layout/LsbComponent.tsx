@@ -3,8 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUpload } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useQuery, useMutation } from "react-query";
-import { fetchTeams } from "src/apis/Api";
-import { dummyData } from "src/apis/DummyData";
+import { fetchTeams } from "@/apis/Api";
 
 const Container = styled.div`
   display: flex;
@@ -57,14 +56,16 @@ interface InterfaceTeam {
 const isLoading = false;
 
 function TeamNote() {
-  /* const { isLoading, data } = useMutation<InterfaceTeam>(["teamInfo"], fetchTeams);
-   */
+  const { isLoading, data } = useQuery<InterfaceTeam[]>(
+    ["teamInfo"],
+    fetchTeams,
+  );
 
   return (
     <TeamContainer>
       <Title>TeamNote</Title>
       <Items>
-        {dummyData?.map((team: any) => (
+        {data?.map((team) => (
           <Item key={team.id}>
             <Link to={`/${team.id}`} state={team}>
               {team.name}
