@@ -1,3 +1,10 @@
+import {
+  faShareFromSquare,
+  faThumbsDown,
+  faThumbsUp,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 const TopNoteContainer = styled.div`
@@ -51,12 +58,58 @@ const BottomNoteContainer = styled.div`
   color: white;
 `;
 
+const Column = styled.div`
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+`;
+
+const Items = styled.ul`
+  display: flex;
+  align-items: center;
+`;
+
+const Item = styled.li`
+  font-size: 20px;
+  margin-right: 20px;
+`;
+
+const Title = styled.div`
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+`;
+
 export function TopNote() {
-  return <TopNoteContainer>I'm TopNote</TopNoteContainer>;
+  return (
+    <TopNoteContainer>
+      <Column>
+        <Items>
+          <Item>
+            <FontAwesomeIcon icon={faShareFromSquare} />
+          </Item>
+          <Item>
+            <FontAwesomeIcon icon={faThumbsUp} />
+          </Item>
+          <Item>
+            <FontAwesomeIcon icon={faThumbsDown} />
+          </Item>
+          <Item>
+            <FontAwesomeIcon icon={faTrash} />
+          </Item>
+        </Items>
+      </Column>
+    </TopNoteContainer>
+  );
 }
 
 export function MiddleNote() {
-  return <MiddleNoteContainer>I'm MiddleNote</MiddleNoteContainer>;
+  return (
+    <MiddleNoteContainer>
+      <Title>전체노트</Title>
+    </MiddleNoteContainer>
+  );
 }
 
 export function BottomNote() {
