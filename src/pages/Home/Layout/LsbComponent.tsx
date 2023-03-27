@@ -11,7 +11,7 @@ const Container = styled.div`
   justify-content: space-between;
   background-color: #74767e64;
   position: fixed;
-  top: 70px;
+  top: 60px;
   bottom: 0;
   left: 0;
   color: #202020;
@@ -48,7 +48,7 @@ const Item = styled.li`
   font-size: 25px;
 `;
 
-interface InterfaceTeam {
+interface TeamInterface {
   id: string;
   name: string;
 }
@@ -56,7 +56,7 @@ interface InterfaceTeam {
 const isLoading = false;
 
 function TeamNote() {
-  const { isLoading, data } = useQuery<InterfaceTeam[]>(
+  const { isLoading, data } = useQuery<TeamInterface[]>(
     ["teamInfo"],
     fetchTeams,
   );
