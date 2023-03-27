@@ -18,7 +18,7 @@ const Nav = styled.nav`
   align-items: center;
   position: fixed;
   width: 100%;
-  top: 0;
+  top: 0px;
   background-color: black;
   font-size: 14px;
   padding: 20px 60px;
