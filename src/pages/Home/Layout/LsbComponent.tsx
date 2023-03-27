@@ -4,6 +4,7 @@ import { faCloudUpload } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useQuery, useMutation } from "react-query";
 import { fetchTeams } from "src/apis/Api";
+import { dummyData } from "src/apis/DummyData";
 
 const Container = styled.div`
   display: flex;
@@ -55,22 +56,6 @@ interface InterfaceTeam {
 
 const isLoading = false;
 
-const data = [
-  {
-    id: 1,
-    name: "CM 1-1",
-  },
-  {
-    id: 1,
-    name: "CM 1-2",
-  },
-  {
-    id: 3,
-    name: "CM 1-3",
-    "": {},
-  },
-];
-
 function TeamNote() {
   /* const { isLoading, data } = useMutation<InterfaceTeam>(["teamInfo"], fetchTeams);
    */
@@ -79,7 +64,7 @@ function TeamNote() {
     <TeamContainer>
       <Title>TeamNote</Title>
       <Items>
-        {data?.map((team: any) => (
+        {dummyData?.map((team: any) => (
           <Item key={team.id}>
             <Link to={`/${team.id}`} state={team}>
               {team.name}
