@@ -6,6 +6,7 @@ function Home() {
     <div>
       <TopNote />
       <MiddleNote />
+      <BottomNote />
     </div>
   );
 }

@@ -109,7 +109,7 @@ export function SignUp() {
           {...register("email", {
             required: "Email is required",
             pattern: {
-              value: /^[A-Za-z0-9._%+-]+@$/,
+              value: /^[A-Za-z0-9._%+-]+@+^[A-Za-z0-9._%+-]$/,
               message: "email is not invalid",
             },
           })}
