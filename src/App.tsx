@@ -72,7 +72,6 @@ const App = () => {
         <GlobalStyle />
         <TsbComponent />
         <LsbComponent />
-
         <Outlet />
       </div>
     </>

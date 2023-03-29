@@ -17,7 +17,7 @@ const router = createBrowserRouter([
       {
         path: ":teamId",
         element: <Note />,
-        children: [{ path: "notePage", element: <NotePage /> }],
+        children: [{ path: "page", element: <NotePage /> }],
       },
     ],
   },

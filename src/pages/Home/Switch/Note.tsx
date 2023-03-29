@@ -5,6 +5,7 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 
 const TopNoteContainer = styled.div`
@@ -122,6 +123,7 @@ function Note() {
       <TopNote />
       <MiddleNote />
       <BottomNote />
+      <Outlet />
     </div>
   );
 }
