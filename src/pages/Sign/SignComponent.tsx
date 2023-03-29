@@ -22,7 +22,7 @@ const SignInput = styled.input`
   padding: 5px 13px;
   border-radius: 5px;
   border: 3px solid rgba(5, 5, 5, 0.34);
-  background-color: blanchedalmond;
+  background-color: #dddee2;
   margin-bottom: 10px;
   color: rgba(33, 26, 26, 0.858);
   font-size: 17px;
@@ -30,7 +30,7 @@ const SignInput = styled.input`
 `;
 const SignButton = styled.button`
   padding: 12px 20px;
-  background-color: rgba(209, 166, 166, 0.708) !important;
+  background-color: #d9dce3 !important;
   color: rgba($color: rgb(41, 34, 34), $alpha: 0.808) !important;
   text-align: center !important;
 `;
@@ -41,7 +41,7 @@ const SignForm = styled.form`
   max-width: 320px;
   margin: 0 auto;
   padding: 20px;
-  background-color: rgba(25, 29, 32, 0.5);
+  background-color: #0d121ebf;
   border-radius: 5px;
   border: 1px solid rgba($color: #fff, $alpha: 0.208);
 `;

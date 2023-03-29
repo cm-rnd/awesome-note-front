@@ -9,7 +9,7 @@ const Container = styled.div`
   display: flex;
   font-size: 14px;
   justify-content: space-between;
-  background-color: #74767e64;
+  background-color: #d9dce3;
   position: fixed;
   top: 60px;
   bottom: 0;

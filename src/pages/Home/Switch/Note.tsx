@@ -18,7 +18,7 @@ const TopNoteContainer = styled.div`
   right: 0;
   width: 85%;
   bottom: 10;
-  background-color: #b3a4a4;
+  background-color: #b1b4bc;
   font-size: 14px;
   padding: 20px 60px;
   color: white;
@@ -35,7 +35,7 @@ const MiddleNoteContainer = styled.div`
   right: 0;
   width: 85%;
   bottom: 10;
-  background-color: #b3a4a4;
+  background-color: #b1b4bc;
   font-size: 14px;
   padding: 20px 60px;
   color: white;
@@ -53,7 +53,7 @@ const BottomNoteContainer = styled.div`
   right: 0;
   width: 85%;
   bottom: 10;
-  background-color: #b3a4a4;
+  background-color: #b1b4bc;
   font-size: 14px;
   padding: 20px 60px;
   color: white;
