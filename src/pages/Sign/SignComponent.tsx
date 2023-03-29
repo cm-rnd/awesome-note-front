@@ -9,8 +9,7 @@ interface InterfaceFormData {
       message: string;
     };
   };
-  firstName: string;
-  lastName: string;
+  name: string;
   userName: string;
   email: string;
   password: string;
@@ -18,9 +17,38 @@ interface InterfaceFormData {
   extraError?: string;
 }
 
+const SignInput = styled.input`
+  all: unset;
+  padding: 5px 13px;
+  border-radius: 5px;
+  border: 3px solid rgba(5, 5, 5, 0.34);
+  background-color: blanchedalmond;
+  margin-bottom: 10px;
+  color: rgba(33, 26, 26, 0.858);
+  font-size: 17px;
+  width: 90%;
+`;
+const SignButton = styled.button`
+  padding: 12px 20px;
+  background-color: rgba(209, 166, 166, 0.708) !important;
+  color: rgba($color: rgb(41, 34, 34), $alpha: 0.808) !important;
+  text-align: center !important;
+`;
+
 const SignForm = styled.form`
   display: flex;
   flex-direction: column;
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgba(25, 29, 32, 0.5);
+  border-radius: 5px;
+  border: 1px solid rgba($color: #fff, $alpha: 0.208);
+`;
+
+const Message = styled.div`
+  margin: 0 auto;
+  text-align: center;
 `;
 
 export function SignUp() {
@@ -44,25 +72,17 @@ export function SignUp() {
   return (
     <div>
       <SignForm onSubmit={handleSubmit(onValid)}>
-        <input
-          {...register("firstName", {
-            required: "firstname is requred",
+        <SignInput
+          {...register("name", {
+            required: "name is requred",
             minLength: 1,
           })}
-          placeholder="FirstName"
+          placeholder="Name"
         />
 
-        <span>{errors?.firstName?.message}</span>
-        <input
-          {...register("lastName", {
-            required: "lastname is requred",
-            minLength: 1,
-          })}
-          placeholder="LastName"
-        />
+        <span>{errors?.name?.message}</span>
 
-        <span>{errors?.lastName?.message}</span>
-        <input
+        <SignInput
           {...register("userName", {
             required: "username is requred",
             minLength: 4,
@@ -71,13 +91,13 @@ export function SignUp() {
         />
 
         <span>{errors?.userName?.message}</span>
-        <input
+        <SignInput
           {...register("password", { required: "Password is requred" })}
           placeholder="Password"
         />
 
         <span>{errors?.password?.message}</span>
-        <input
+        <SignInput
           {...register("passwordCheck", {
             required: "Passwordcheck is requred",
           })}
@@ -85,7 +105,7 @@ export function SignUp() {
         />
 
         <span>{errors?.passwordCheck?.message}</span>
-        <input
+        <SignInput
           {...register("email", {
             required: "Email is required",
             pattern: {
@@ -97,9 +117,13 @@ export function SignUp() {
         />
 
         <span>{errors?.email?.message}</span>
-        <button>Sign up</button>
+        <SignButton>Sign up</SignButton>
         <span>{errors?.extraError?.message}</span>
       </SignForm>
+      <Message>
+        <span> Already have an account? </span>
+        <a href="/signin"> Sign in now &rarr; </a>
+      </Message>
     </div>
   );
 }
@@ -114,18 +138,24 @@ export function SignIn() {
   return (
     <div>
       <SignForm>
-        <input
+        <SignInput
           {...register("userName", { required: true, minLength: 1 })}
           placeholder="UserName"
         />
         <span>{errors?.userName?.message}</span>
-        <input
+        <SignInput
           {...register("password", { required: true, minLength: 1 })}
           placeholder="Password"
         />
         <span>{errors?.password?.message}</span>
-        <button>Sign up</button>
+        <SignButton>Sign in</SignButton>
       </SignForm>
+      <div>
+        <Message>
+          <span> Don't have an account? </span>
+          <a href="/signup"> Create one now &rarr; </a>
+        </Message>
+      </div>
     </div>
   );
 }

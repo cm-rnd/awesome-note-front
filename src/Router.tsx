@@ -4,11 +4,15 @@ import Home from "./pages/Home/Home";
 import Note from "./pages/Home/Switch/Note";
 
 import NotePage from "./pages/Home/Switch/NotePage";
+import { SignIn, SignUp } from "./pages/Sign/SignComponent";
+
+import Sign from "./pages/Sign/SignPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+
     children: [
       {
         path: "",
@@ -20,6 +24,14 @@ const router = createBrowserRouter([
         children: [{ path: "page", element: <NotePage /> }],
       },
     ],
+  },
+  {
+    path: "signup",
+    element: <SignUp />,
+  },
+  {
+    path: "signin",
+    element: <SignIn />,
   },
 ]);
 
