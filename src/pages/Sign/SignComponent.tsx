@@ -73,7 +73,7 @@ export function SignUp() {
         <span>{errors?.userName?.message}</span>
         <input
           {...register("password", { required: "Password is requred" })}
-          placeholder="PassWord"
+          placeholder="Password"
         />
 
         <span>{errors?.password?.message}</span>
@@ -81,7 +81,7 @@ export function SignUp() {
           {...register("passwordCheck", {
             required: "Passwordcheck is requred",
           })}
-          placeholder="PassWord Check"
+          placeholder="Password Check"
         />
 
         <span>{errors?.passwordCheck?.message}</span>
@@ -99,6 +99,32 @@ export function SignUp() {
         <span>{errors?.email?.message}</span>
         <button>Sign up</button>
         <span>{errors?.extraError?.message}</span>
+      </SignForm>
+    </div>
+  );
+}
+export function SignIn() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm<InterfaceFormData>();
+
+  return (
+    <div>
+      <SignForm>
+        <input
+          {...register("userName", { required: true, minLength: 1 })}
+          placeholder="UserName"
+        />
+        <span>{errors?.userName?.message}</span>
+        <input
+          {...register("password", { required: true, minLength: 1 })}
+          placeholder="Password"
+        />
+        <span>{errors?.password?.message}</span>
+        <button>Sign up</button>
       </SignForm>
     </div>
   );
