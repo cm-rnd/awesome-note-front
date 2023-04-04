@@ -30,9 +30,9 @@ const SignInput = styled.input`
 `;
 const SignButton = styled.button`
   padding: 12px 20px;
-  background-color: #d9dce3 !important;
-  color: rgba($color: rgb(41, 34, 34), $alpha: 0.808) !important;
-  text-align: center !important;
+  background-color: #d9dce3;
+  color: rgba($color: rgb(41, 34, 34), $alpha: 0.808);
+  text-align: center;
 `;
 
 const SignForm = styled.form`
