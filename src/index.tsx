@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClientProvider, QueryClient } from "react-query";
-import { Router, RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import App from "./App";
 import router from "./Router";
 
