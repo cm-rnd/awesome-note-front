@@ -71,7 +71,7 @@ export function SignUp() {
 
   return (
     <div>
-      <SignForm onSubmit={handleSubmit(onValid)}>
+      <SignForm onSubmit={() => handleSubmit(onValid)}>
         <SignInput
           {...register("name", {
             required: "name is requred",
