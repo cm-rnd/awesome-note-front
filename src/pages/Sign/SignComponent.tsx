@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 
-interface InterfaceFormData {
+interface FormData {
   errors: {
     email: {
       message: string;
@@ -57,8 +57,8 @@ export function SignUp() {
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<InterfaceFormData>();
-  const onValid = (data: InterfaceFormData) => {
+  } = useForm<FormData>();
+  const onValid = (data: FormData) => {
     if (data.password != data.passwordCheck) {
       setError(
         "password",
@@ -133,7 +133,7 @@ export function SignIn() {
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<InterfaceFormData>();
+  } = useForm<FormData>();
 
   return (
     <div>
