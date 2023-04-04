@@ -81,15 +81,11 @@ function LsbComponent() {
         <Item>
           <FontAwesomeIcon icon={faCloudUpload} />{" "}
         </Item>
-        <Link to={`/`}>
-          <Item> 전체 노트</Item>
-        </Link>
-        <Item> </Item>
-        <Item> </Item>
-        <Item> </Item>
-        <Item> </Item>
-        <Item> </Item>
-        <Item> </Item>
+        <Item>
+          {" "}
+          <Link to={`/`}>전체 노트</Link>
+        </Item>
+
         <TeamNote />
       </Items>
     </Container>
