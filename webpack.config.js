@@ -13,6 +13,7 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
+    publicPath: "/",
   },
   plugins: [
     new Dotenv(),
@@ -30,14 +31,17 @@ module.exports = {
   ],
   resolve: {
     modules: [path.resolve(__dirname, "src"), "node_modules"],
-    extensions: [".ts", ".tsx", ".js", ".jsx"],
+    extensions: [".ts", ".tsx", ".js", ".jsx", "..."],
     alias: {
       "@": path.resolve(__dirname, "src/"),
       "@components": path.resolve(__dirname, "src/components/"),
       "@pages": path.resolve(__dirname, " src/pages/"),
+      "@apis": path.resolve(__dirname, "src/apis/"),
     },
   },
   devServer: {
+    historyApiFallback: true,
+
     client: {
       overlay: true,
       progress: true,
