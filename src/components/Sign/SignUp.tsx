@@ -6,7 +6,7 @@ import {
   SignInput,
 } from "../StyleComponent/SignStyle";
 
-interface FormData {
+interface Form {
   errors: {
     email: {
       message: string;
@@ -26,8 +26,8 @@ export function SignUp() {
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<FormData>();
-  const onValid = (data: FormData) => {
+  } = useForm<Form>();
+  const onValid = (data: Form) => {
     if (data.password != data.passwordCheck) {
       setError(
         "password",
@@ -37,10 +37,11 @@ export function SignUp() {
     }
     setError("extraError", { message: "서버 닫힘" });
   };
+  console.log(errors);
 
   return (
     <div>
-      <SignForm onSubmit={() => handleSubmit(onValid)}>
+      <SignForm onSubmit={handleSubmit(onValid)}>
         <SignInput
           {...register("name", {
             required: "name is requred",
@@ -54,14 +55,23 @@ export function SignUp() {
         <SignInput
           {...register("userName", {
             required: "username is requred",
-            minLength: 4,
+            minLength: {
+              value: 4,
+              message: "username은 4자 이상 입력해야 합니다.",
+            },
           })}
           placeholder="UserName"
         />
 
         <span>{errors?.userName?.message}</span>
         <SignInput
-          {...register("password", { required: "Password is requred" })}
+          {...register("password", {
+            required: "Password is requred",
+            minLength: {
+              value: 4,
+              message: "비밀번호는 4자 이상 입력해야 합니다.",
+            },
+          })}
           placeholder="Password"
         />
 
@@ -77,15 +87,12 @@ export function SignUp() {
         <SignInput
           {...register("email", {
             required: "Email is required",
-            pattern: {
-              value: /^[A-Za-z0-9._%+-]+@+^[A-Za-z0-9._%+-]$/,
-              message: "email is not invalid",
-            },
           })}
           placeholder="Email"
         />
 
         <span>{errors?.email?.message}</span>
+
         <SignButton>Sign up</SignButton>
         <span>{errors?.extraError?.message}</span>
       </SignForm>
