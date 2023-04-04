@@ -1,5 +1,5 @@
+import { SignUp } from "@/components/Sign/SignUp";
 import styled from "styled-components";
-import { SignIn, SignUp } from "./SignComponent";
 
 function Sign() {
   return (

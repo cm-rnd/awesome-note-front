@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import {
+  Message,
+  SignButton,
+  SignForm,
+  SignInput,
+} from "../StyleComponent/SignStyle";
 
 interface FormData {
   errors: {
@@ -16,40 +19,6 @@ interface FormData {
   passwordCheck: string;
   extraError?: string;
 }
-
-const SignInput = styled.input`
-  all: unset;
-  padding: 5px 13px;
-  border-radius: 5px;
-  border: 3px solid rgba(5, 5, 5, 0.34);
-  background-color: #dddee2;
-  margin-bottom: 10px;
-  color: rgba(33, 26, 26, 0.858);
-  font-size: 17px;
-  width: 90%;
-`;
-const SignButton = styled.button`
-  padding: 12px 20px;
-  background-color: #d9dce3;
-  color: rgba($color: rgb(41, 34, 34), $alpha: 0.808);
-  text-align: center;
-`;
-
-const SignForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  max-width: 320px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #0d121ebf;
-  border-radius: 5px;
-  border: 1px solid rgba($color: #fff, $alpha: 0.208);
-`;
-
-const Message = styled.div`
-  margin: 0 auto;
-  text-align: center;
-`;
 
 export function SignUp() {
   const {
@@ -124,38 +93,6 @@ export function SignUp() {
         <span> Already have an account? </span>
         <a href="/signin"> Sign in now &rarr; </a>
       </Message>
-    </div>
-  );
-}
-export function SignIn() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm<FormData>();
-
-  return (
-    <div>
-      <SignForm>
-        <SignInput
-          {...register("userName", { required: true, minLength: 1 })}
-          placeholder="UserName"
-        />
-        <span>{errors?.userName?.message}</span>
-        <SignInput
-          {...register("password", { required: true, minLength: 1 })}
-          placeholder="Password"
-        />
-        <span>{errors?.password?.message}</span>
-        <SignButton>Sign in</SignButton>
-      </SignForm>
-      <div>
-        <Message>
-          <span> Don't have an account? </span>
-          <a href="/signup"> Create one now &rarr; </a>
-        </Message>
-      </div>
     </div>
   );
 }
