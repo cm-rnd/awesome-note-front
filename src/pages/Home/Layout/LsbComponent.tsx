@@ -48,7 +48,7 @@ const Item = styled.li`
   font-size: 25px;
 `;
 
-interface TeamInterface {
+interface Team {
   id: string;
   name: string;
 }
@@ -56,10 +56,7 @@ interface TeamInterface {
 const isLoading = false;
 
 function TeamNote() {
-  const { isLoading, data } = useQuery<TeamInterface[]>(
-    ["teamInfo"],
-    fetchTeams,
-  );
+  const { isLoading, data } = useQuery<Team[]>(["teamInfo"], fetchTeams);
 
   return (
     <TeamContainer>
