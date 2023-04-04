@@ -1,3 +1,8 @@
+import axios from "axios";
+
 export async function fetchTeams() {
-  return await (await fetch("http://localhost:8000/teams")).json();
+  return await axios.get("http://localhost:8000/teams").then((res) => {
+    console.log(res); // 요청 확인용
+    return res.data;
+  });
 }
