@@ -51,6 +51,44 @@ export const BottomNoteContainer = styled.div`
   color: white;
 `;
 
+export const CommentsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  border-left: 2px solid #202020;
+  width: 100%;
+  height: 84%;
+  top: 170.2px;
+  border-top: 1px solid #202020;
+  left: 57.5%;
+  width: 85%;
+  bottom: 10;
+  background-color: #b1b4bc;
+  font-size: 14px;
+  padding: 20px 60px;
+  color: white;
+`;
+
+export const TextContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: 84%;
+  top: 170.2px;
+  border-top: 1px solid #202020;
+
+  right: 0;
+  width: 85%;
+  bottom: 10;
+  background-color: #b1b4bc;
+  font-size: 14px;
+  padding: 20px 60px;
+  color: white;
+`;
+
 export const NoteColumn = styled.div`
   margin-left: auto;
   display: flex;
