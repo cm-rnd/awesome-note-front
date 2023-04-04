@@ -1,5 +1,7 @@
+import { BottomNote } from "@/components/Note/BottomNote";
+import { MiddleNote } from "@/components/Note/MiddleNote";
+import { TopNote } from "@/components/Note/TopNote";
 import styled from "styled-components";
-import { BottomNote, MiddleNote, TopNote } from "./Switch/Note";
 
 function Home() {
   return (
