@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import {
   Message,
@@ -20,28 +21,33 @@ interface Form {
   extraError?: string;
 }
 
+interface PostUserResponse {
+
+        data: Form
+
+}
+
 export function SignUp() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
     setError,
   } = useForm<Form>();
-  const onValid = (data: Form) => {
-    if (data.password != data.passwordCheck) {
-      setError(
-        "password",
-        { message: "비밀번호가 같지 않습니다." },
-        { shouldFocus: true },
-      );
-    }
+  const onPost = (data: Form) => {
+    axios.post<PostUserResponse>(`api`, data, { headers: { `Content-Type`: `application/json`,},}).then((res)=> {console.log(res); window.alert(`회원가입 완료`); 
+    
+    history.replace(`/signin`);}
+  ).catch((error)=> {window.alert(`회원가입 실패`); console.log(error)})
+
     setError("extraError", { message: "서버 닫힘" });
   };
   console.log(errors);
 
   return (
     <div>
-      <SignForm onSubmit={handleSubmit(onValid)}>
+      <SignForm onSubmit={handleSubmit(onPost)}>
         <SignInput
           {...register("name", {
             required: "name is requred",
@@ -79,6 +85,14 @@ export function SignUp() {
         <SignInput
           {...register("passwordCheck", {
             required: "Passwordcheck is requred",
+
+            validate: {
+              check: (val) => {
+                if (getValues("password") !== val) {
+                  return "비밀번호가 같지 않습니다.";
+                }
+              },
+            },
           })}
           placeholder="Password Check"
         />
