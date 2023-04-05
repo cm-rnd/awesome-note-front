@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
   Message,
@@ -13,18 +14,18 @@ interface Form {
       message: string;
     };
   };
-  name: string;
-  userName: string;
-  email: string;
+  nickname: string;
+  loginId: string;
   password: string;
   passwordCheck: string;
   extraError?: string;
+  email: string;
 }
 
-interface PostUserResponse {
-
-        data: Form
-
+interface ApiForm {
+  nickname: string;
+  loginId: string;
+  password: string;
 }
 
 export function SignUp() {
@@ -35,11 +36,23 @@ export function SignUp() {
     formState: { errors },
     setError,
   } = useForm<Form>();
+
+  const navigate = useNavigate();
   const onPost = (data: Form) => {
-    axios.post<PostUserResponse>(`api`, data, { headers: { `Content-Type`: `application/json`,},}).then((res)=> {console.log(res); window.alert(`회원가입 완료`); 
-    
-    history.replace(`/signin`);}
-  ).catch((error)=> {window.alert(`회원가입 실패`); console.log(error)})
+    console.log(data);
+    axios
+      .post<ApiForm>("http://192.168.159.42:20000/api/v1/signup", data, {
+        headers: { ContentType: "application/json" },
+      })
+      .then((res) => {
+        console.log(res);
+        window.alert(`회원가입 완료`);
+        navigate(`/signin`);
+      })
+      .catch((error) => {
+        window.alert(`회원가입 실패`);
+        console.log(error);
+      });
 
     setError("extraError", { message: "서버 닫힘" });
   };
@@ -49,27 +62,27 @@ export function SignUp() {
     <div>
       <SignForm onSubmit={handleSubmit(onPost)}>
         <SignInput
-          {...register("name", {
+          {...register("nickname", {
             required: "name is requred",
             minLength: 1,
           })}
           placeholder="Name"
         />
 
-        <span>{errors?.name?.message}</span>
+        <span>{errors?.nickname?.message}</span>
 
         <SignInput
-          {...register("userName", {
-            required: "username is requred",
+          {...register("loginId", {
+            required: "ID is requred",
             minLength: {
               value: 4,
-              message: "username은 4자 이상 입력해야 합니다.",
+              message: "ID는 4자 이상 입력해야 합니다.",
             },
           })}
-          placeholder="UserName"
+          placeholder="LoginId"
         />
 
-        <span>{errors?.userName?.message}</span>
+        <span>{errors?.loginId?.message}</span>
         <SignInput
           {...register("password", {
             required: "Password is requred",
