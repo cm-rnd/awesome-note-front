@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUpload } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useQuery, useMutation } from "react-query";
-import { fetchTeams } from "@/apis/Api";
+import { axiosTeams } from "@/apis/Api";
 
 const Container = styled.div`
   display: flex;
@@ -56,7 +56,7 @@ interface Team {
 const isLoading = false;
 
 function TeamNote() {
-  const { isLoading, data } = useQuery<Team[]>(["teamInfo"], fetchTeams);
+  const { isLoading, data } = useQuery<Team[]>(["teamInfo"], axiosTeams);
 
   return (
     <TeamContainer>
