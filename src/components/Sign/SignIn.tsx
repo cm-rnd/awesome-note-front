@@ -14,6 +14,12 @@ interface LoginFormData {
   extraError?: string;
 }
 
+interface SessionData {
+  loginId: string;
+  nickname: string;
+  role: string;
+}
+
 export function SignIn() {
   const {
     register,
@@ -25,9 +31,13 @@ export function SignIn() {
   const LoginPost = (data: LoginFormData) => {
     console.log(data);
     axios
-      .post("http://192.168.159.42:20000/api/v1/login", data, {
-        withCredentials: true,
-      })
+      .post<LoginFormData, { data: { data: SessionData } }>(
+        "http://192.168.159.42:20000/api/v1/login",
+        data,
+        {
+          withCredentials: true,
+        },
+      )
       .then((res) => {
         console.log(res);
         console.log("res.data.data.loginId :: ", res.data.data.loginId);
@@ -35,7 +45,7 @@ export function SignIn() {
 
         if (res.data.data.loginId === undefined) {
           alert("id가 없습니다.");
-        } else if (res.data.data.password === null) {
+        } else if (res.data.data.nickname === null) {
           alert("비밀번호가 일치하지 않습니다.");
         } else if (res.data.data.loginId === data.loginId) {
           sessionStorage.setItem("login_id", res.data.data.loginId);
