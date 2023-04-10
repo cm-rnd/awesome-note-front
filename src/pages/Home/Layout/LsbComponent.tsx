@@ -49,23 +49,31 @@ const Item = styled.li`
 `;
 
 interface Team {
-  id: string;
-  name: string;
+  folderId: string;
+  folderName: string;
+}
+
+interface DATA {
+  data: innerData;
+}
+
+interface innerData {
+  folderInfoList: Team[];
 }
 
 const isLoading = false;
 
 function TeamNote() {
-  const { isLoading, data } = useQuery<Team[]>(["teamInfo"], axiosTeams);
+  const { isLoading, data } = useQuery<DATA>(["teamInfo"], axiosTeams);
 
   return (
     <TeamContainer>
       <Title>TeamNote</Title>
       <Items>
-        {data?.map((team) => (
-          <Item key={team.id}>
-            <Link to={`/${team.id}`} state={team}>
-              {team.name}
+        {data?.data.folderInfoList.map((team) => (
+          <Item key={team.folderId}>
+            <Link to={`/${team.folderId}`} state={team}>
+              {team.folderName}
             </Link>
           </Item>
         ))}

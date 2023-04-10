@@ -41,7 +41,7 @@ export function SignUp() {
   const onPost = (data: Form) => {
     console.log(data);
     axios
-      .post<ApiForm>("http://192.168.159.42:20000/api/v1/signup", data, {
+      .post<ApiForm>("http://localhost:8080/api/v1/signup", data, {
         headers: { ContentType: "application/json" },
       })
       .then((res) => {
