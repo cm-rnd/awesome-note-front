@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, { Axios, AxiosResponse } from "axios";
+import { useMutation } from "react-query";
 
 export async function axiosTeams() {
   return await axios
@@ -8,5 +9,72 @@ export async function axiosTeams() {
     .then((res) => {
       console.log(res); // 요청 확인용
       return res.data;
+    });
+}
+
+const config = {
+  headers: { "Content-Type": "multipart/form-data" },
+  withCredentials: true,
+};
+
+interface FormData {
+  record: File;
+}
+interface ResponseData {
+  record: File;
+}
+
+export const postFiles = async (e: any) => {
+  // console.log(e.target.files[0]);
+  const formdata = e.target.files[0];
+  axios
+    .post(`http://localhost:8080/api/v1/notes`, { record: formdata }, config)
+    .then((data) => {
+      console.log(data);
+      alert("업로드 완료");
+      window.location.reload();
+    })
+    .catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+      alert("업로드 오류");
+    });
+};
+
+export async function PostFiles(event: any) {
+  return await axios
+    .post(
+      `http://localhost:8080/api/v1/notes`,
+      { record: event.target.files[0] },
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true,
+      },
+    )
+    .then((data) => {
+      console.log(data);
+      alert("업로드 완료");
+      window.location.reload();
+    })
+    .catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+      alert("업로드 오류");
     });
 }

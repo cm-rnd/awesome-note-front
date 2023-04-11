@@ -3,7 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUpload } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useQuery, useMutation } from "react-query";
-import { axiosTeams } from "@/apis/Api";
+import { axiosTeams, postFiles } from "@/apis/Api";
+import axios from "axios";
+import React, { useRef } from "react";
 
 const Container = styled.div`
   display: flex;
@@ -63,6 +65,41 @@ interface innerData {
 
 const isLoading = false;
 
+function LsbComponent() {
+  const { mutate } = useMutation(postFiles);
+
+  const handleButtonClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  return (
+    <Container>
+      <Items>
+        <Item>
+          <button onClick={handleButtonClick}>
+            파일 업로드
+            <FontAwesomeIcon onClick={handleButtonClick} icon={faCloudUpload} />
+          </button>{" "}
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={mutate}
+            style={{ display: "none" }}
+          />
+        </Item>
+        <Item>
+          {" "}
+          <Link to={`/`}>전체 노트</Link>
+        </Item>
+
+        <TeamNote />
+      </Items>
+    </Container>
+  );
+}
+
 function TeamNote() {
   const { isLoading, data } = useQuery<DATA>(["teamInfo"], axiosTeams);
 
@@ -79,24 +116,6 @@ function TeamNote() {
         ))}
       </Items>
     </TeamContainer>
-  );
-}
-
-function LsbComponent() {
-  return (
-    <Container>
-      <Items>
-        <Item>
-          <FontAwesomeIcon icon={faCloudUpload} />{" "}
-        </Item>
-        <Item>
-          {" "}
-          <Link to={`/`}>전체 노트</Link>
-        </Item>
-
-        <TeamNote />
-      </Items>
-    </Container>
   );
 }
 
