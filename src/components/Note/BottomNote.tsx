@@ -8,11 +8,12 @@ import {
   DropResult,
   Droppable,
 } from "react-beautiful-dnd";
-import { noteState } from "@/atoms/atoms";
+import { INote, noteState } from "@/atoms/atoms";
 import Board from "../Board";
 import axios from "axios";
-import { requestNoteData } from "@/apis/Api";
+import { axiosTeams, requestNoteData } from "@/apis/Api";
 import { useQuery } from "react-query";
+import { DATA } from "@/pages/Home/Layout/LsbComponent";
 
 const Wrapper = styled.div`
   display: flex;
@@ -32,13 +33,28 @@ const Boards = styled.div`
 `;
 
 export function BottomNote() {
-  const [notes, setNote] = useRecoilState(noteState);
+  const [notes, setNotes] = useRecoilState(noteState);
+  const { isLoading, data } = useQuery<DATA>(["teamInfo"], axiosTeams);
+  const saveNote = () => {
+    /*const savedata: any = data?.data.folderInfoList.map((team) =>
+      setNotes({ [team.folderName]: [] }),
+    );*/
+    // const saveData = data?.data.folderInfoList.map((team) => {
+    //   return setNotes((old) => { [team.folderName]: [], (...old) });
+    // });
+    const saveData: any = data?.data.folderInfoList.reduce((prev, acc) => {
+      return { ...prev, [acc.folderName]: [] };
+    }, {});
+    // setNotes(saveData)
+    setNotes(saveData);
+  };
+
   const onDragEnd = (info: DropResult) => {
     console.log(info);
     const { destination, draggableId, source } = info;
     if (!destination) return;
     if (destination?.droppableId === source.droppableId) {
-      setNote((allBoards) => {
+      setNotes((allBoards) => {
         const boardCopy = [...allBoards[source.droppableId]];
         const noteObj = boardCopy[source.index];
 
@@ -51,7 +67,7 @@ export function BottomNote() {
       });
     }
     if (destination?.droppableId !== source.droppableId) {
-      setNote((allBoards) => {
+      setNotes((allBoards) => {
         const sourceBoard = [...allBoards[source.droppableId]];
         const destinationBoard = [...allBoards[destination.droppableId]];
         const noteObj = sourceBoard[source.index];
@@ -65,13 +81,12 @@ export function BottomNote() {
       });
     }
   };
-  const { isLoading, data } = useQuery(["noteInfo"], requestNoteData);
-  console.log(data);
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <BottomNoteContainer>
         <Wrapper>
+          <button onClick={saveNote}>save</button>
           <Boards>
             {Object.keys(notes).map((boardId) => (
               <Board boardId={boardId} key={boardId} notes={notes[boardId]} />

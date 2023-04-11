@@ -50,16 +50,16 @@ const Item = styled.li`
   font-size: 25px;
 `;
 
-interface Team {
+export interface Team {
   folderId: string;
   folderName: string;
 }
 
-interface DATA {
+export interface DATA {
   data: innerData;
 }
 
-interface innerData {
+export interface innerData {
   folderInfoList: Team[];
 }
 
