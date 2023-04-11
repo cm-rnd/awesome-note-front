@@ -10,6 +10,9 @@ import {
 } from "react-beautiful-dnd";
 import { noteState } from "@/atoms/atoms";
 import Board from "../Board";
+import axios from "axios";
+import { requestNoteData } from "@/apis/Api";
+import { useQuery } from "react-query";
 
 const Wrapper = styled.div`
   display: flex;
@@ -37,8 +40,10 @@ export function BottomNote() {
     if (destination?.droppableId === source.droppableId) {
       setNote((allBoards) => {
         const boardCopy = [...allBoards[source.droppableId]];
+        const noteObj = boardCopy[source.index];
+
         boardCopy.splice(source.index, 1);
-        boardCopy.splice(destination?.index, 0, draggableId);
+        boardCopy.splice(destination?.index, 0, noteObj);
         return {
           ...allBoards,
           [source.droppableId]: boardCopy,
@@ -49,9 +54,9 @@ export function BottomNote() {
       setNote((allBoards) => {
         const sourceBoard = [...allBoards[source.droppableId]];
         const destinationBoard = [...allBoards[destination.droppableId]];
-
+        const noteObj = sourceBoard[source.index];
         sourceBoard.splice(source.index, 1);
-        destinationBoard.splice(destination?.index, 0, draggableId);
+        destinationBoard.splice(destination?.index, 0, noteObj);
         return {
           ...allBoards,
           [source.droppableId]: sourceBoard,
@@ -60,6 +65,9 @@ export function BottomNote() {
       });
     }
   };
+  const { isLoading, data } = useQuery(["noteInfo"], requestNoteData);
+  console.log(data);
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <BottomNoteContainer>

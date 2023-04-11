@@ -1,6 +1,9 @@
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import DraggableCard from "./DragabbleCard";
+import { INote, noteState } from "@/atoms/atoms";
+import Note from "@/pages/Home/Switch/Note";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 const Wrapper = styled.div`
   width: 300px;
@@ -21,7 +24,7 @@ const Title = styled.div`
 `;
 
 interface IboardProps {
-  notes: string[];
+  notes: INote[];
   boardId: string;
 }
 
@@ -44,6 +47,10 @@ const Area = styled.div<IAreaProps>`
 `;
 
 function Board({ notes, boardId }: IboardProps) {
+  const setNote = useSetRecoilState(noteState);
+  const onValid = () => {
+    const newNote = {};
+  };
   return (
     <Wrapper>
       <Title>{boardId}</Title>
@@ -56,7 +63,12 @@ function Board({ notes, boardId }: IboardProps) {
             {...magic.droppableProps}
           >
             {notes.map((note, index) => (
-              <DraggableCard key={note} index={index} note={note} />
+              <DraggableCard
+                key={note.noteId}
+                index={index}
+                noteId={note.noteId}
+                context={note.context}
+              />
             ))}
 
             {magic.placeholder}

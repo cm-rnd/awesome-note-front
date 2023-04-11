@@ -49,6 +49,32 @@ export const postFiles = async (e: any) => {
     });
 };
 
+export const requestNoteData = async () => {
+  await axios
+    .get("http://localhost:8080/api/v1/notes?page=0&size=5", {
+      withCredentials: true,
+    })
+    .then((res) => {
+      const data = res.data.data.noteInfoList;
+      console.log(data);
+
+      return data;
+    })
+    .catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    });
+};
+
+/*
 export async function PostFiles(event: any) {
   return await axios
     .post(
@@ -78,3 +104,4 @@ export async function PostFiles(event: any) {
       alert("업로드 오류");
     });
 }
+*/
