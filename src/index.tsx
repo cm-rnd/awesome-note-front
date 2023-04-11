@@ -4,7 +4,9 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { RouterProvider } from "react-router-dom";
 import App from "./App";
 import router from "./Router";
-import { CookiesProvider } from "react-cookie";
+import { RecoilRoot } from "recoil";
+import { darkTheme } from "./themes/theme";
+import { ThemeProvider } from "styled-components";
 
 const queryClient = new QueryClient();
 
@@ -12,11 +14,11 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 root.render(
-  <React.StrictMode>
-    <CookiesProvider>
+  <RecoilRoot>
+    <ThemeProvider theme={darkTheme}>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
       </QueryClientProvider>
-    </CookiesProvider>
-  </React.StrictMode>,
+    </ThemeProvider>
+  </RecoilRoot>,
 );
