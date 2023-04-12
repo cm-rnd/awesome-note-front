@@ -13,11 +13,43 @@ export async function axiosTeams() {
     });
 }
 
-export async function requestNoteData() {
+export async function requestNoteData(page: number) {
   return await axios
-    .get("http://localhost:8080/api/v1/notes?page=0&size=5", {
+    .get(`http://localhost:8080/api/v1/notes?page=${page - 1}&size=5`, {
       withCredentials: true,
     })
+    .then((res) => {
+      const data = res.data.data.noteInfoList;
+      console.log(data);
+      return data;
+    })
+    .catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    });
+}
+
+export async function requestNoteFolderData(
+  folderId: number,
+  folderPage: number,
+) {
+  return await axios
+    .get(
+      `http://localhost:8080/api/v1/notes/folders/${folderId}?page=${
+        folderPage - 1
+      }&size=5`,
+      {
+        withCredentials: true,
+      },
+    )
     .then((res) => {
       const data = res.data.data.noteInfoList;
       console.log(data);

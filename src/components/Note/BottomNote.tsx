@@ -11,7 +11,7 @@ import {
 import { INote, noteState } from "@/atoms/atoms";
 import Board from "../Board";
 import axios, { all } from "axios";
-import { axiosTeams, requestNoteData } from "@/apis/Api";
+import { axiosTeams, requestNoteData, requestNoteFolderData } from "@/apis/Api";
 import { useQuery } from "react-query";
 import { Data } from "@/pages/Home/Layout/LsbComponent";
 import { Icon } from "@fortawesome/fontawesome-svg-core";
@@ -50,9 +50,117 @@ interface Icontent {
 export function BottomNote() {
   const [notes, setNotes] = useRecoilState(noteState);
   const { data } = useQuery<Data>(["teamInfo"], axiosTeams);
-  const { data: noteData } = useQuery<NotesPage>(["noteInfo"], requestNoteData);
 
-  /*
+  const { data: noteData, isFetched } = useQuery<NotesPage>([`noteInfo`], () =>
+    requestNoteData(page),
+  );
+  const page = 1;
+
+  const { data: notefolderData } = useQuery<NotesPage>(["noteFolderInfo"], () =>
+    requestNoteFolderData(folderId, folderPage),
+  );
+
+  const folderId = 1;
+  const folderPage = 1;
+
+  console.log({ noteData }, "노트데이터");
+
+  useEffect(() => {
+    if (isFetched) {
+      const boardTitle = Object.keys(notes);
+      const boardIndex = Object.keys(notes).map((title, index) => {
+        return index;
+      });
+      const boardName = Object.keys(notes);
+
+      console.log(notefolderData, "노트폴더데이터");
+
+      for (let i = 0; i < 5; i++) {
+        if (noteData?.content[i].folderId === null) {
+          setNotes((allBoards) => {
+            const allnote = [...allBoards[boardName[0]]];
+            const noteObj = noteData?.content[i];
+            allnote.splice(allnote.length, 0, noteObj);
+            return {
+              ...allBoards,
+              [boardName[0]]: allnote,
+            };
+          });
+        }
+      }
+      for (let i = 1; i < boardName.length; i++) {
+        const folderId = i;
+        setNotes((allBoards) => {
+          const allnotes = notefolderData?.content ?? [];
+          return {
+            ...allBoards,
+            [boardName[1]]: allnotes,
+          };
+        });
+      }
+    }
+  }, [isFetched]);
+
+  const onDragEnd = (info: DropResult) => {
+    console.log(info);
+    const { destination, draggableId, source } = info;
+    const boardName = Object.keys(notes);
+    if (!destination) return;
+    if (destination.droppableId === "0") return;
+    if (destination?.droppableId === source.droppableId) {
+      setNotes((allBoards) => {
+        const boardCopy = [...allBoards[boardName[+source.droppableId]]];
+        const noteObj = boardCopy[source.index];
+
+        boardCopy.splice(source.index, 1);
+        boardCopy.splice(destination?.index, 0, noteObj);
+        return {
+          ...allBoards,
+          [boardName[+source.droppableId]]: boardCopy,
+        };
+      });
+    }
+
+    if (destination?.droppableId !== source.droppableId) {
+      setNotes((allBoards) => {
+        const sourceBoard = [...allBoards[boardName[+source.droppableId]]];
+        const destinationBoard = [
+          ...allBoards[boardName[+destination.droppableId]],
+        ];
+        const noteObj = sourceBoard[source.index];
+        sourceBoard.splice(source.index, 1);
+        destinationBoard.splice(destination?.index, 0, noteObj);
+        return {
+          ...allBoards,
+          [boardName[+source.droppableId]]: sourceBoard,
+          [boardName[+destination.droppableId]]: destinationBoard,
+        };
+      });
+    }
+  };
+
+  return (
+    <DragDropContext onDragEnd={onDragEnd}>
+      <BottomNoteContainer>
+        <Wrapper>
+          <Boards>
+            {Object.keys(notes).map((boardId, index) => (
+              <Board
+                boardId={index + ""}
+                title={boardId}
+                key={boardId}
+                notes={notes[boardId]}
+              />
+            ))}
+          </Boards>
+        </Wrapper>
+      </BottomNoteContainer>
+    </DragDropContext>
+  );
+}
+
+/*
+
   const saveNote = () => {
     noteData();
 
@@ -82,7 +190,7 @@ export function BottomNote() {
     }, {});
     console.log("테스트노트", saveTest);
     console.log("세이브노트", saveNote);
-    /*
+ 
       notesPage?.content.map((noteInfo) => {
         if (noteInfo.folderName === keys[i]) {
           setNotes({ ...notes, [keys[i]]: [noteInfo] });
@@ -98,91 +206,3 @@ export function BottomNote() {
       });
     }
 */
-
-  console.log({ notes });
-  console.log(noteData?.content, "mnd");
-  console.log(noteData?.size, "크기");
-  console.log(noteData?.totalElements);
-  console.log(noteData?.content[0].writerNickname, "콘데");
-
-  const saveNote = () => {
-    const boardTitle = Object.keys(notes);
-    const boardIndex = Object.keys(notes).map((title, index) => {
-      return index;
-    });
-    console.log(noteData?.content[0].folderId, "노데");
-
-    for (let i = 0; i < 5; i++) {
-      if (noteData?.content[i].folderId === null) {
-        setNotes((allBoards) => {
-          const allnote = [...allBoards["전체노트"]];
-          const noteObj = noteData?.content[i];
-          allnote.splice(allnote.length, 0, noteObj);
-
-          return {
-            ...allBoards,
-            ["전체노트"]: allnote,
-          };
-        });
-      }
-    }
-  };
-
-  const onDragEnd = (info: DropResult) => {
-    console.log(info);
-    const { destination, draggableId, source } = info;
-    const boardIndex = Object.keys(notes);
-    if (!destination) return;
-    if (destination.droppableId === "0") return;
-    if (destination?.droppableId === source.droppableId) {
-      setNotes((allBoards) => {
-        const boardCopy = [...allBoards[boardIndex[+source.droppableId]]];
-        const noteObj = boardCopy[source.index];
-
-        boardCopy.splice(source.index, 1);
-        boardCopy.splice(destination?.index, 0, noteObj);
-        return {
-          ...allBoards,
-          [boardIndex[+source.droppableId]]: boardCopy,
-        };
-      });
-    }
-
-    if (destination?.droppableId !== source.droppableId) {
-      setNotes((allBoards) => {
-        const sourceBoard = [...allBoards[boardIndex[+source.droppableId]]];
-        const destinationBoard = [
-          ...allBoards[boardIndex[+destination.droppableId]],
-        ];
-        const noteObj = sourceBoard[source.index];
-        sourceBoard.splice(source.index, 1);
-        destinationBoard.splice(destination?.index, 0, noteObj);
-        return {
-          ...allBoards,
-          [boardIndex[+source.droppableId]]: sourceBoard,
-          [boardIndex[+destination.droppableId]]: destinationBoard,
-        };
-      });
-    }
-  };
-
-  return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <BottomNoteContainer>
-        <Wrapper>
-          <Boards>
-            <button onClick={saveNote}>hi...</button>
-            {Object.keys(notes).map((boardId, index) => (
-              <Board
-                boardId={index + ""}
-                title={boardId}
-                key={boardId}
-                notes={notes[boardId]}
-              />
-            ))}
-          </Boards>
-        </Wrapper>
-      </BottomNoteContainer>
-    </DragDropContext>
-  );
-}
