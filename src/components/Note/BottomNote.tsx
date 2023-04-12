@@ -8,13 +8,14 @@ import {
   DropResult,
   Droppable,
 } from "react-beautiful-dnd";
-import { INote, noteState } from "@/atoms/atoms";
+import { INote, noteState, pageState } from "@/atoms/atoms";
 import Board from "../Board";
 import axios, { all } from "axios";
 import { axiosTeams, requestNoteData, requestNoteFolderData } from "@/apis/Api";
 import { useQuery } from "react-query";
 import { Data } from "@/pages/Home/Layout/LsbComponent";
 import { Icon } from "@fortawesome/fontawesome-svg-core";
+import Paging from "../Paging";
 
 const Wrapper = styled.div`
   display: flex;
@@ -49,12 +50,17 @@ interface Icontent {
 
 export function BottomNote() {
   const [notes, setNotes] = useRecoilState(noteState);
+  const [page, setPage] = useRecoilState(pageState);
+
   const { data } = useQuery<Data>(["teamInfo"], axiosTeams);
 
-  const { data: noteData, isFetched } = useQuery<NotesPage>([`noteInfo`], () =>
-    requestNoteData(page),
-  );
-  const page = 1;
+  const {
+    data: noteData,
+    isFetched,
+    refetch,
+  } = useQuery<NotesPage>([`noteInfo`], () => requestNoteData(page), {
+    refetchOnMount: true,
+  });
 
   const { data: notefolderData } = useQuery<NotesPage>(["noteFolderInfo"], () =>
     requestNoteFolderData(folderId, folderPage),
@@ -62,8 +68,12 @@ export function BottomNote() {
 
   const folderId = 1;
   const folderPage = 1;
-
+  console.log(page, "페이지");
   console.log({ noteData }, "노트데이터");
+
+  useEffect(() => {
+    refetch();
+  }, [page]);
 
   useEffect(() => {
     if (isFetched) {
@@ -72,7 +82,7 @@ export function BottomNote() {
         return index;
       });
       const boardName = Object.keys(notes);
-
+      console.log(noteData?.totalElements, "노트 토탈엘리멘트");
       console.log(notefolderData, "노트폴더데이터");
 
       for (let i = 0; i < 5; i++) {
@@ -140,8 +150,8 @@ export function BottomNote() {
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <BottomNoteContainer>
+    <BottomNoteContainer>
+      <DragDropContext onDragEnd={onDragEnd}>
         <Wrapper>
           <Boards>
             {Object.keys(notes).map((boardId, index) => (
@@ -150,12 +160,15 @@ export function BottomNote() {
                 title={boardId}
                 key={boardId}
                 notes={notes[boardId]}
+                page={page}
+                setPage={setPage}
+                totalElement={noteData?.totalElements}
               />
             ))}
           </Boards>
         </Wrapper>
-      </BottomNoteContainer>
-    </DragDropContext>
+      </DragDropContext>
+    </BottomNoteContainer>
   );
 }
 

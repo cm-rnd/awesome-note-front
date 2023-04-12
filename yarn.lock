@@ -1841,6 +1841,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-js-pagination@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.npmjs.org/@types/react-js-pagination/-/react-js-pagination-3.0.4.tgz"
+  integrity sha512-yka+27eZ6Mg9cmwT2sADgLn3ij9hVfpPu5dk+Y/0k1xS52WZOz0LJnn4y4VKGmR4mf/tG5Ga7Dody/xmfiB0Fg==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-query@^1.2.9":
   version "1.2.9"
   resolved "https://registry.npmjs.org/@types/react-query/-/react-query-1.2.9.tgz"

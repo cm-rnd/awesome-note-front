@@ -13,6 +13,11 @@ export interface INote {
   folderId: number | null;
 }
 
+export const pageState = atom({
+  key: "page",
+  default: 1,
+});
+
 export const noteState = atom<NoteState>({
   key: "note",
   default: {
