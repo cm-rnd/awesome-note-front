@@ -38,6 +38,7 @@ export interface NotesPage {
   totalElements: string;
   content: INote[];
   size: number;
+  numberOfElements: number;
 }
 
 export interface NotesData {
@@ -72,20 +73,18 @@ export function BottomNote() {
   console.log({ noteData }, "노트데이터");
 
   useEffect(() => {
-    refetch();
-  }, [page]);
+    {
+      refetch();
+      setNotes({ 전체노트: [], "CM1-1": [], "CM1-2": [] });
 
-  useEffect(() => {
-    if (isFetched) {
       const boardTitle = Object.keys(notes);
       const boardIndex = Object.keys(notes).map((title, index) => {
         return index;
       });
       const boardName = Object.keys(notes);
-      console.log(noteData?.totalElements, "노트 토탈엘리멘트");
-      console.log(notefolderData, "노트폴더데이터");
-
-      for (let i = 0; i < 5; i++) {
+      console.log(noteData?.content, "노트22데이터");
+      const numElement = noteData?.numberOfElements ?? 0;
+      for (let i = 0; i < numElement; i++) {
         if (noteData?.content[i].folderId === null) {
           setNotes((allBoards) => {
             const allnote = [...allBoards[boardName[0]]];
@@ -109,7 +108,7 @@ export function BottomNote() {
         });
       }
     }
-  }, [isFetched]);
+  }, [isFetched, page]);
 
   const onDragEnd = (info: DropResult) => {
     console.log(info);

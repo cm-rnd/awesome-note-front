@@ -5,7 +5,6 @@ import Pagination from "react-js-pagination";
 const Paging = ({ page, setPage, totalElement }: any) => {
   const handlePageChange = (page: number) => {
     setPage(page);
-    console.log(page, "페이징 부분에서 page");
   };
 
   return (
