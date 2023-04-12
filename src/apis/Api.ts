@@ -1,3 +1,4 @@
+import { NotesData, NotesPage } from "@/components/Note/BottomNote";
 import axios, { Axios, AxiosResponse } from "axios";
 import { useMutation } from "react-query";
 
@@ -9,6 +10,30 @@ export async function axiosTeams() {
     .then((res) => {
       console.log(res); // 요청 확인용
       return res.data;
+    });
+}
+
+export async function requestNoteData() {
+  return await axios
+    .get("http://localhost:8080/api/v1/notes?page=0&size=5", {
+      withCredentials: true,
+    })
+    .then((res) => {
+      const data = res.data.data.noteInfoList;
+      console.log(data);
+      return data;
+    })
+    .catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
     });
 }
 
@@ -46,31 +71,6 @@ export const postFiles = async (e: any) => {
       }
       console.log(error.config);
       alert("업로드 오류");
-    });
-};
-
-export const requestNoteData = async () => {
-  await axios
-    .get("http://localhost:8080/api/v1/notes?page=0&size=5", {
-      withCredentials: true,
-    })
-    .then((res) => {
-      const data = res.data.data.noteInfoList;
-      console.log(data);
-
-      return data;
-    })
-    .catch(function (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
-      }
-      console.log(error.config);
     });
 };
 

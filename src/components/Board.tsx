@@ -26,6 +26,7 @@ const Title = styled.div`
 interface IboardProps {
   notes: INote[];
   boardId: string;
+  title: string;
 }
 
 interface IAreaProps {
@@ -46,14 +47,15 @@ const Area = styled.div<IAreaProps>`
   padding: 20px;
 `;
 
-function Board({ notes, boardId }: IboardProps) {
+function Board({ notes, boardId, title }: IboardProps) {
   const setNote = useSetRecoilState(noteState);
+  console.log(boardId);
   const onValid = () => {
     const newNote = {};
   };
   return (
     <Wrapper>
-      <Title>{boardId}</Title>
+      <Title>{title}</Title>
       <Droppable droppableId={boardId}>
         {(magic, info) => (
           <Area
@@ -67,7 +69,7 @@ function Board({ notes, boardId }: IboardProps) {
                 key={note.noteId}
                 index={index}
                 noteId={note.noteId}
-                context={note.context}
+                context={`제목: ${note.noteId} 작성자: ${note.writerNickname}`}
               />
             ))}
 

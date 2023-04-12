@@ -55,7 +55,7 @@ export interface Team {
   folderName: string;
 }
 
-export interface DATA {
+export interface Data {
   data: innerData;
 }
 
@@ -101,7 +101,7 @@ function LsbComponent() {
 }
 
 function TeamNote() {
-  const { isLoading, data } = useQuery<DATA>(["teamInfo"], axiosTeams);
+  const { isLoading, data } = useQuery<Data>(["teamInfo"], axiosTeams);
 
   return (
     <TeamContainer>
