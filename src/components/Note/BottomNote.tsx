@@ -100,19 +100,33 @@ export function BottomNote() {
 */
 
   console.log({ notes });
+  console.log(noteData?.content, "mnd");
+  console.log(noteData?.size, "크기");
+  console.log(noteData?.totalElements);
+  console.log(noteData?.content[0].writerNickname, "콘데");
 
-  useEffect(() => {
-    console.log(noteData?.content[0], "mnd");
-
-    setNotes((allBoards) => {
-      const allnote = allBoards["전체노트"];
-      const noteObj = allnote[0];
-      console.log("노트오브제", noteObj);
-      return {
-        ...allBoards,
-      };
+  const saveNote = () => {
+    const boardTitle = Object.keys(notes);
+    const boardIndex = Object.keys(notes).map((title, index) => {
+      return index;
     });
-  }, []);
+    console.log(noteData?.content[0].folderId, "노데");
+
+    for (let i = 0; i < 5; i++) {
+      if (noteData?.content[i].folderId === null) {
+        setNotes((allBoards) => {
+          const allnote = [...allBoards["전체노트"]];
+          const noteObj = noteData?.content[i];
+          allnote.splice(allnote.length, 0, noteObj);
+
+          return {
+            ...allBoards,
+            ["전체노트"]: allnote,
+          };
+        });
+      }
+    }
+  };
 
   const onDragEnd = (info: DropResult) => {
     console.log(info);
@@ -157,6 +171,7 @@ export function BottomNote() {
       <BottomNoteContainer>
         <Wrapper>
           <Boards>
+            <button onClick={saveNote}>hi...</button>
             {Object.keys(notes).map((boardId, index) => (
               <Board
                 boardId={index + ""}
