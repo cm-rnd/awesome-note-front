@@ -15,9 +15,13 @@ export async function axiosTeams() {
 
 export async function requestNoteData(page: number) {
   return await axios
-    .get(`http://localhost:8080/api/v1/notes?page=${page - 1}&size=5`, {
-      withCredentials: true,
-    })
+    .get(
+      `http://localhost:8080/api/v1/notes?page=${page - 1}&size=5
+    `,
+      {
+        withCredentials: true,
+      },
+    )
     .then((res) => {
       const data = res.data.data.noteInfoList;
       console.log(data);

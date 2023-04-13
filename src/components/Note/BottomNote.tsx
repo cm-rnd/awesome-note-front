@@ -107,18 +107,21 @@ export function BottomNote() {
     console.log(noteData?.content, "노트22데이터");
     const numElement = noteData?.numberOfElements ?? 0;
     for (let i = 0; i < numElement; i++) {
-      if (noteData?.content[i].folderId === null) {
-        setNotes((allBoards) => {
-          const allnote = [...allBoards[boardName[0]]];
-          const noteObj = noteData?.content[i];
+      setNotes((allBoards) => {
+        let notes = { ...allBoards };
+
+        const allnote = [...allBoards[boardName[0]]];
+        const noteObj = noteData?.content[i];
+
+        if (noteObj) {
           allnote.splice(allnote.length, 0, noteObj);
-          return {
-            ...allBoards,
-            [boardName[0]]: allnote,
-          };
-        });
-      }
+          notes[boardName[0]] = allnote;
+        }
+
+        return notes;
+      });
     }
+
     for (let i = 1; i < boardName.length; i++) {
       const folderId = i;
       setNotes((allBoards) => {
