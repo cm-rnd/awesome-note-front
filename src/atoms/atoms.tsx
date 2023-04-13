@@ -26,3 +26,12 @@ export const noteState = atom<NoteState>({
     "CM1-2": [],
   },
 });
+
+export const noteIdState = atom({
+  key: "noteId",
+  default: 0,
+});
+export const folderIdState = atom({
+  key: "folderId",
+  default: 0,
+});

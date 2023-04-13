@@ -106,6 +106,32 @@ export const postFiles = async (e: any) => {
     });
 };
 
+export async function postMoveNote(noteId: number, folderId: number) {
+  return await axios
+    .post(
+      `http://localhost:8080/api/v1/notes/${noteId}/folders/${folderId}`,
+      "",
+      { withCredentials: true },
+    )
+    .then((data) => {
+      console.log(data);
+      alert("업로드 완료");
+    })
+    .catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+      alert("업로드 오류");
+    });
+}
+
 /*
 export async function PostFiles(event: any) {
   return await axios

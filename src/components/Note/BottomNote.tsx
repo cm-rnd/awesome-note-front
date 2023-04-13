@@ -8,11 +8,22 @@ import {
   DropResult,
   Droppable,
 } from "react-beautiful-dnd";
-import { INote, noteState, pageState } from "@/atoms/atoms";
+import {
+  INote,
+  folderIdState,
+  noteIdState,
+  noteState,
+  pageState,
+} from "@/atoms/atoms";
 import Board from "../Board";
 import axios, { all } from "axios";
-import { axiosTeams, requestNoteData, requestNoteFolderData } from "@/apis/Api";
-import { useQuery } from "react-query";
+import {
+  axiosTeams,
+  postMoveNote,
+  requestNoteData,
+  requestNoteFolderData,
+} from "@/apis/Api";
+import { useMutation, useQuery } from "react-query";
 import { Data } from "@/pages/Home/Layout/LsbComponent";
 import { Icon } from "@fortawesome/fontawesome-svg-core";
 import Paging from "../Paging";
@@ -49,9 +60,18 @@ interface Icontent {
   [key: string]: INote[];
 }
 
+interface MoveNote {
+  noteId: number;
+  folderId: number;
+}
+
 export function BottomNote() {
   const [notes, setNotes] = useRecoilState(noteState);
   const [page, setPage] = useRecoilState(pageState);
+  const [noteId, setNoteId] = useRecoilState(noteIdState);
+  const [folderId, setFolderId] = useRecoilState(folderIdState);
+
+  console.log(pageState, page, "ppppp");
 
   const { data } = useQuery<Data>(["teamInfo"], axiosTeams);
 
@@ -59,54 +79,55 @@ export function BottomNote() {
     data: noteData,
     isFetched,
     refetch,
-  } = useQuery<NotesPage>([`noteInfo`], () => requestNoteData(page), {
+  } = useQuery<NotesPage>([`noteInfo`, page], () => requestNoteData(page), {
     refetchOnMount: true,
   });
 
-  const { data: notefolderData } = useQuery<NotesPage>(["noteFolderInfo"], () =>
-    requestNoteFolderData(folderId, folderPage),
+  const moveNote = useMutation(() => postMoveNote(noteId, folderId));
+
+  const folderPage = 0;
+
+  const { data: notefolderData } = useQuery<NotesPage>(
+    ["noteFolderInfo", folderId, folderPage],
+    () => requestNoteFolderData(folderId, folderPage),
   );
 
-  const folderId = 1;
-  const folderPage = 1;
   console.log(page, "페이지");
   console.log({ noteData }, "노트데이터");
 
   useEffect(() => {
-    {
-      refetch();
-      setNotes({ 전체노트: [], "CM1-1": [], "CM1-2": [] });
+    // refetch();
+    setNotes({ 전체노트: [], "CM1-1": [], "CM1-2": [] });
 
-      const boardTitle = Object.keys(notes);
-      const boardIndex = Object.keys(notes).map((title, index) => {
-        return index;
-      });
-      const boardName = Object.keys(notes);
-      console.log(noteData?.content, "노트22데이터");
-      const numElement = noteData?.numberOfElements ?? 0;
-      for (let i = 0; i < numElement; i++) {
-        if (noteData?.content[i].folderId === null) {
-          setNotes((allBoards) => {
-            const allnote = [...allBoards[boardName[0]]];
-            const noteObj = noteData?.content[i];
-            allnote.splice(allnote.length, 0, noteObj);
-            return {
-              ...allBoards,
-              [boardName[0]]: allnote,
-            };
-          });
-        }
-      }
-      for (let i = 1; i < boardName.length; i++) {
-        const folderId = i;
+    const boardTitle = Object.keys(notes);
+    const boardIndex = Object.keys(notes).map((title, index) => {
+      return index;
+    });
+    const boardName = Object.keys(notes);
+    console.log(noteData?.content, "노트22데이터");
+    const numElement = noteData?.numberOfElements ?? 0;
+    for (let i = 0; i < numElement; i++) {
+      if (noteData?.content[i].folderId === null) {
         setNotes((allBoards) => {
-          const allnotes = notefolderData?.content ?? [];
+          const allnote = [...allBoards[boardName[0]]];
+          const noteObj = noteData?.content[i];
+          allnote.splice(allnote.length, 0, noteObj);
           return {
             ...allBoards,
-            [boardName[1]]: allnotes,
+            [boardName[0]]: allnote,
           };
         });
       }
+    }
+    for (let i = 1; i < boardName.length; i++) {
+      const folderId = i;
+      setNotes((allBoards) => {
+        const allnotes = notefolderData?.content ?? [];
+        return {
+          ...allBoards,
+          [boardName[1]]: allnotes,
+        };
+      });
     }
   }, [isFetched, page]);
 
@@ -145,8 +166,17 @@ export function BottomNote() {
           [boardName[+destination.droppableId]]: destinationBoard,
         };
       });
+      setNoteId(+draggableId);
+      setFolderId(+destination.droppableId);
+      // moveNote.mutate();
     }
   };
+
+  useEffect(() => {
+    if (folderId !== 0) {
+      moveNote.mutate();
+    }
+  }, [folderId]);
 
   return (
     <BottomNoteContainer>
