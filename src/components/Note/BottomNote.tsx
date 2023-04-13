@@ -27,6 +27,7 @@ import { useMutation, useQuery } from "react-query";
 import { Data } from "@/pages/Home/Layout/LsbComponent";
 import { Icon } from "@fortawesome/fontawesome-svg-core";
 import Paging from "../Paging";
+import { AllNotes } from "../Board/AllNotes";
 
 const Wrapper = styled.div`
   display: flex;
@@ -73,6 +74,8 @@ export function BottomNote() {
 
   console.log(pageState, page, "ppppp");
 
+  AllNotes();
+
   const { data } = useQuery<Data>(["teamInfo"], axiosTeams);
 
   const {
@@ -91,36 +94,9 @@ export function BottomNote() {
     ["noteFolderInfo", folderId, folderPage],
     () => requestNoteFolderData(folderId, folderPage),
   );
-
-  console.log(page, "페이지");
-  console.log({ noteData }, "노트데이터");
-
+  /*
   useEffect(() => {
-    // refetch();
-    setNotes({ 전체노트: [], "CM1-1": [], "CM1-2": [] });
-
-    const boardTitle = Object.keys(notes);
-    const boardIndex = Object.keys(notes).map((title, index) => {
-      return index;
-    });
-    const boardName = Object.keys(notes);
-    console.log(noteData?.content, "노트22데이터");
-    const numElement = noteData?.numberOfElements ?? 0;
-    for (let i = 0; i < numElement; i++) {
-      setNotes((allBoards) => {
-        let notes = { ...allBoards };
-
-        const allnote = [...allBoards[boardName[0]]];
-        const noteObj = noteData?.content[i];
-
-        if (noteObj) {
-          allnote.splice(allnote.length, 0, noteObj);
-          notes[boardName[0]] = allnote;
-        }
-
-        return notes;
-      });
-    }
+   
 
     for (let i = 1; i < boardName.length; i++) {
       const folderId = i;
@@ -133,6 +109,7 @@ export function BottomNote() {
       });
     }
   }, [isFetched, page]);
+*/
 
   const onDragEnd = (info: DropResult) => {
     console.log(info);
