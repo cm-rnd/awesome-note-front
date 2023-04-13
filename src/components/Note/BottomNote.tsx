@@ -9,7 +9,6 @@ import {
   Droppable,
 } from "react-beautiful-dnd";
 import {
-  INote,
   folderIdState,
   noteIdState,
   noteState,
@@ -24,10 +23,11 @@ import {
   requestNoteFolderData,
 } from "@/apis/Api";
 import { useMutation, useQuery } from "react-query";
-import { Data } from "@/pages/Home/Layout/LsbComponent";
+
 import { Icon } from "@fortawesome/fontawesome-svg-core";
 import Paging from "../Paging";
 import { AllNotes } from "../Board/AllNotes";
+import { Data, NotesPage } from "@/interfaces/\bCommonInterface";
 
 const Wrapper = styled.div`
   display: flex;
@@ -45,26 +45,6 @@ const Boards = styled.div`
   width: 100%;
   gap: 10px;
 `;
-
-export interface NotesPage {
-  totalElements: string;
-  content: INote[];
-  size: number;
-  numberOfElements: number;
-}
-
-export interface NotesData {
-  data: NotesPage;
-}
-
-interface Icontent {
-  [key: string]: INote[];
-}
-
-interface MoveNote {
-  noteId: number;
-  folderId: number;
-}
 
 export function BottomNote() {
   const [notes, setNotes] = useRecoilState(noteState);

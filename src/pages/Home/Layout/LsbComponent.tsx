@@ -6,6 +6,7 @@ import { useQuery, useMutation } from "react-query";
 import { axiosTeams, postFiles } from "@/apis/Api";
 import axios from "axios";
 import React, { useRef } from "react";
+import { Data } from "@/interfaces/\bCommonInterface";
 
 const Container = styled.div`
   display: flex;
@@ -49,19 +50,6 @@ const Item = styled.li`
   padding: 20px;
   font-size: 25px;
 `;
-
-export interface Team {
-  folderId: string;
-  folderName: string;
-}
-
-export interface Data {
-  data: innerData;
-}
-
-export interface innerData {
-  folderInfoList: Team[];
-}
 
 const isLoading = false;
 

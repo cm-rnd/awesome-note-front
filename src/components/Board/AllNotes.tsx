@@ -1,9 +1,10 @@
 import { noteState, pageState } from "@/atoms/atoms";
 import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
-import { NotesPage } from "../Note/BottomNote";
+
 import { requestNoteData } from "@/apis/Api";
 import { useEffect } from "react";
+import { NotesPage } from "@/interfaces/\bCommonInterface";
 
 export function AllNotes() {
   const [notes, setNotes] = useRecoilState(noteState);

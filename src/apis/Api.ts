@@ -1,4 +1,3 @@
-import { NotesData, NotesPage } from "@/components/Note/BottomNote";
 import axios, { Axios, AxiosResponse } from "axios";
 import { useMutation } from "react-query";
 

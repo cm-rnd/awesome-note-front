@@ -1,10 +1,11 @@
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import DraggableCard from "./DragabbleCard";
-import { INote, noteState } from "@/atoms/atoms";
+import { noteState } from "@/atoms/atoms";
 import Note from "@/pages/Home/Switch/Note";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import Paging from "./Paging";
+import { INote } from "@/interfaces/\bCommonInterface";
 
 const Wrapper = styled.div`
   width: 300px;
