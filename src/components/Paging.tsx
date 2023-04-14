@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import "./Paging.css";
 import Pagination from "react-js-pagination";
 
-const Paging = ({ page, setPage, totalElement }: any) => {
-  const handlePageChange = (page: number) => setPage(page);
+interface IPaging {
+  page: number;
+  totalElement: number;
+  handlePageChange: (page: number) => void;
+}
+
+const Paging = ({ page, totalElement, handlePageChange }: IPaging) => {
   return (
     <Pagination
       activePage={page}

@@ -12,7 +12,9 @@ import {
   folderIdState,
   noteIdState,
   noteState,
+  notesInfoState,
   pageState,
+  teamNotesInfoState,
 } from "@/atoms/atoms";
 import Board from "../Board";
 import axios, { all } from "axios";
@@ -27,7 +29,9 @@ import { useMutation, useQuery } from "react-query";
 import { Icon } from "@fortawesome/fontawesome-svg-core";
 import Paging from "../Paging";
 import { AllNotes } from "../Board/AllNotes";
-import { Data, NotesPage } from "@/interfaces/\bCommonInterface";
+import { Data, NotesPage } from "@/interfaces/CommonInterface";
+import usePagination from "../hook/usePagination";
+import { TeamNotes } from "../Board/TeamNotes";
 
 const Wrapper = styled.div`
   display: flex;
@@ -48,48 +52,21 @@ const Boards = styled.div`
 
 export function BottomNote() {
   const [notes, setNotes] = useRecoilState(noteState);
-  const [page, setPage] = useRecoilState(pageState);
   const [noteId, setNoteId] = useRecoilState(noteIdState);
   const [folderId, setFolderId] = useRecoilState(folderIdState);
+  const [noteData, setNoteData] = useRecoilState(notesInfoState);
 
-  console.log(pageState, page, "ppppp");
+  const { page, setPage, handlePageChange } = usePagination(
+    Object.keys(notes).length,
+  );
+  AllNotes(page[0], (num: number) => handlePageChange(0, num));
 
-  AllNotes();
-
+  for (let i = 1; i < Object.keys(notes).length; i++) {
+    TeamNotes(page[i], (num: number) => handlePageChange(i, num), i);
+  }
   const { data } = useQuery<Data>(["teamInfo"], axiosTeams);
 
-  const {
-    data: noteData,
-    isFetched,
-    refetch,
-  } = useQuery<NotesPage>([`noteInfo`, page], () => requestNoteData(page), {
-    refetchOnMount: true,
-  });
-
   const moveNote = useMutation(() => postMoveNote(noteId, folderId));
-
-  const folderPage = 0;
-
-  const { data: notefolderData } = useQuery<NotesPage>(
-    ["noteFolderInfo", folderId, folderPage],
-    () => requestNoteFolderData(folderId, folderPage),
-  );
-  /*
-  useEffect(() => {
-   
-
-    for (let i = 1; i < boardName.length; i++) {
-      const folderId = i;
-      setNotes((allBoards) => {
-        const allnotes = notefolderData?.content ?? [];
-        return {
-          ...allBoards,
-          [boardName[1]]: allnotes,
-        };
-      });
-    }
-  }, [isFetched, page]);
-*/
 
   const onDragEnd = (info: DropResult) => {
     console.log(info);
@@ -132,6 +109,8 @@ export function BottomNote() {
     }
   };
 
+  console.log(noteData, "노트..");
+
   useEffect(() => {
     if (folderId !== 0) {
       moveNote.mutate();
@@ -143,17 +122,16 @@ export function BottomNote() {
       <DragDropContext onDragEnd={onDragEnd}>
         <Wrapper>
           <Boards>
-            {Object.keys(notes).map((boardId, index) => (
-              <Board
-                boardId={index + ""}
-                title={boardId}
-                key={boardId}
-                notes={notes[boardId]}
-                page={page}
-                setPage={setPage}
-                totalElement={noteData?.totalElements}
-              />
-            ))}
+            {Object.keys(notes).map((boardId, index) => {
+              return (
+                <Board
+                  boardId={index + ""}
+                  title={boardId}
+                  key={boardId}
+                  notes={notes[boardId]}
+                />
+              );
+            })}
           </Boards>
         </Wrapper>
       </DragDropContext>

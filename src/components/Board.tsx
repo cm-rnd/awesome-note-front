@@ -5,7 +5,8 @@ import { noteState } from "@/atoms/atoms";
 import Note from "@/pages/Home/Switch/Note";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import Paging from "./Paging";
-import { INote } from "@/interfaces/\bCommonInterface";
+import { INote } from "@/interfaces/CommonInterface";
+import { Dispatch, SetStateAction } from "react";
 
 const Wrapper = styled.div`
   width: 300px;
@@ -29,9 +30,6 @@ interface IboardProps {
   notes: INote[];
   boardId: string;
   title: string;
-  page: number;
-  setPage: any;
-  totalElement: any;
 }
 
 interface IAreaProps {
@@ -52,14 +50,7 @@ const Area = styled.div<IAreaProps>`
   padding: 20px;
 `;
 
-function Board({
-  notes,
-  boardId,
-  title,
-  page,
-  setPage,
-  totalElement,
-}: IboardProps) {
+function Board({ notes, boardId, title }: IboardProps) {
   const setNote = useSetRecoilState(noteState);
   console.log(boardId);
   const onValid = () => {
@@ -81,7 +72,7 @@ function Board({
                 key={note.noteId}
                 index={index}
                 noteId={note.noteId}
-                context={`제목: ${note.noteId} 작성자: ${note.writerNickname}`}
+                context={`제목: ${note.noteId} 작성자: ${note.writerNickname} 팀: ${note.folderName}`}
               />
             ))}
 
@@ -89,7 +80,6 @@ function Board({
           </Area>
         )}
       </Droppable>
-      <Paging page={page} setPage={setPage} totalElement={totalElement} />
     </Wrapper>
   );
 }

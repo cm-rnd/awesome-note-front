@@ -6,7 +6,7 @@ import { useQuery, useMutation } from "react-query";
 import { axiosTeams, postFiles } from "@/apis/Api";
 import axios from "axios";
 import React, { useRef } from "react";
-import { Data } from "@/interfaces/\bCommonInterface";
+import { Data } from "@/interfaces/CommonInterface";
 
 const Container = styled.div`
   display: flex;

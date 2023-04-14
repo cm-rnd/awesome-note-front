@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface NotesPage {
   totalElements: string;
   content: INote[];
@@ -26,4 +28,10 @@ export interface Data {
 }
 export interface innerData {
   folderInfoList: Team[];
+}
+
+export interface IPaginationState {
+  page: number;
+  setPage: Dispatch<SetStateAction<number>>;
+  handlePageChange: (page: number) => void;
 }

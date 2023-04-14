@@ -15,7 +15,7 @@ export async function axiosTeams() {
 export async function requestNoteData(page: number) {
   return await axios
     .get(
-      `http://localhost:8080/api/v1/notes?page=${page - 1}&size=5
+      `http://localhost:8080/api/v1/notes?page=${page - 1}&size=40
     `,
       {
         withCredentials: true,
@@ -46,9 +46,7 @@ export async function requestNoteFolderData(
 ) {
   return await axios
     .get(
-      `http://localhost:8080/api/v1/notes/folders/${folderId}?page=${
-        folderPage - 1
-      }&size=5`,
+      `http://localhost:8080/api/v1/notes/folders/${folderId}?page=0&size=50`,
       {
         withCredentials: true,
       },
