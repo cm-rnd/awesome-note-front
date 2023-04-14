@@ -13,21 +13,12 @@ import {
   noteIdState,
   noteState,
   notesInfoState,
-  pageState,
-  teamNotesInfoState,
 } from "@/atoms/atoms";
 import Board from "../Board";
-import axios, { all } from "axios";
-import {
-  axiosTeams,
-  postMoveNote,
-  requestNoteData,
-  requestNoteFolderData,
-} from "@/apis/Api";
+
+import { axiosTeams, postMoveNote } from "@/apis/Api";
 import { useMutation, useQuery } from "react-query";
 
-import { Icon } from "@fortawesome/fontawesome-svg-core";
-import Paging from "../Paging";
 import { AllNotes } from "../Board/AllNotes";
 import { Data, NotesPage } from "@/interfaces/CommonInterface";
 import usePagination from "../hook/usePagination";
@@ -56,14 +47,13 @@ export function BottomNote() {
   const [folderId, setFolderId] = useRecoilState(folderIdState);
   const [noteData, setNoteData] = useRecoilState(notesInfoState);
 
-  const { page, setPage, handlePageChange } = usePagination(
-    Object.keys(notes).length,
-  );
+  const { page, handlePageChange } = usePagination(Object.keys(notes).length);
   AllNotes(page[0], (num: number) => handlePageChange(0, num));
 
   for (let i = 1; i < Object.keys(notes).length; i++) {
     TeamNotes(page[i], (num: number) => handlePageChange(i, num), i);
   }
+
   const { data } = useQuery<Data>(["teamInfo"], axiosTeams);
 
   const moveNote = useMutation(() => postMoveNote(noteId, folderId));
@@ -105,11 +95,8 @@ export function BottomNote() {
       });
       setNoteId(+draggableId);
       setFolderId(+destination.droppableId);
-      // moveNote.mutate();
     }
   };
-
-  console.log(noteData, "노트..");
 
   useEffect(() => {
     if (folderId !== 0) {
@@ -138,51 +125,3 @@ export function BottomNote() {
     </BottomNoteContainer>
   );
 }
-
-/*
-
-  const saveNote = () => {
-    noteData();
-
-    const saveData: any = data?.data.folderInfoList.reduce((prev, acc) => {
-      return { ...prev, [acc.folderName]: [] };
-    }, {}); // setNotes(saveData)
-
-    setNotes({ ...notes, ...saveData });
-
-    const keys = Object.keys(notes);
-
-    console.log("키길이", keys.length);
-
-    const saveTest: any = notesPage?.content.reduce((prev: any, noteInfo) => {
-      return { ...prev, ["전체노트"]: [noteInfo] };
-    }, {});
-
-    const saveNote: any = notesPage?.content.reduce((prev: any, noteInfo) => {
-      for (let i = 0; i < keys.length; i++) {
-        if (noteInfo.folderName === keys[i]) {
-          return { ...prev, [noteInfo.folderName]: [noteInfo] };
-        }
-        if (noteInfo.folderName === null) {
-          return { ...prev, ["전체노트"]: [noteInfo] };
-        }
-      }
-    }, {});
-    console.log("테스트노트", saveTest);
-    console.log("세이브노트", saveNote);
- 
-      notesPage?.content.map((noteInfo) => {
-        if (noteInfo.folderName === keys[i]) {
-          setNotes({ ...notes, [keys[i]]: [noteInfo] });
-        }
-
-        if (noteInfo.folderName === null) {
-          console.log("노트뭘까", notes);
-          setNotes({
-            ...notes,
-            ["전체노트"]: [noteInfo],
-          });
-        }
-      });
-    }
-*/

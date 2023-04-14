@@ -1,4 +1,4 @@
-import { noteState, paginationState } from "@/atoms/atoms";
+import { noteState } from "@/atoms/atoms";
 import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
 
@@ -16,7 +16,6 @@ export function AllNotes(page: number, setPage: (num: number) => void) {
   } = useQuery<NotesPage>([`noteInfo`, page], () => requestNoteData(page), {
     refetchOnMount: true,
   });
-  const [pagination, setPagination] = useRecoilState(paginationState);
 
   useEffect(() => {
     if (!noteData) {

@@ -1,11 +1,5 @@
 import { requestNoteFolderData } from "@/apis/Api";
-import {
-  folderIdState,
-  folderPageState,
-  teamFolderIdState,
-  teamNotesInfoState,
-} from "@/atoms/atoms";
-import { notesInfoState } from "@/atoms/atoms";
+
 import { noteState, pageState } from "@/atoms/atoms";
 import { NotesPage } from "@/interfaces/CommonInterface";
 import { useEffect } from "react";
@@ -24,12 +18,7 @@ export function TeamNotes(
     () => requestNoteFolderData(folderId, folderPage),
   );
 
-  const [notesInfoData, setNotesInfoData] = useRecoilState(teamNotesInfoState);
-
   useEffect(() => {
-    if (teamNoteData) {
-      setNotesInfoData(teamNoteData);
-    }
     const boardIndex = Object.keys(notes).map((title, index) => {
       return index;
     });
@@ -39,11 +28,11 @@ export function TeamNotes(
 
     setNotes((allBoards) => {
       let notes = { ...allBoards };
-      console.log(boardName, "보드네임");
+
       notes[boardName[folderId]] = [];
       return notes;
     });
-    console.log(notes, "뭐야");
+
     for (let j = 0; j < numElement; j++) {
       setNotes((allBoards) => {
         let notes = { ...allBoards };
@@ -55,9 +44,9 @@ export function TeamNotes(
           allnote.splice(allnote.length, 0, noteObj);
           notes[boardName[folderId]] = allnote;
         }
-        console.log(notes, "그다음에는");
+
         return notes;
       });
     }
-  }, [isFetched, folderPage]);
+  }, [isFetched]);
 }

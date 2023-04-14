@@ -23,17 +23,8 @@ export const noteState = atom<NoteState>({
     "CM1-2": [],
   },
 });
-export const folderPageState = atom({
-  key: "folderId",
-  default: 1,
-});
 
 export const noteIdState = atom({
-  key: "noteId",
-  default: 0,
-});
-
-export const teamFolderIdState = atom({
   key: "noteId",
   default: 0,
 });
@@ -46,14 +37,4 @@ export const folderIdState = atom({
 export const notesInfoState = atom<NotesPage>({
   key: "notesInfo",
   default: { totalElements: "", content: [], size: 0, numberOfElements: 0 },
-});
-
-export const teamNotesInfoState = atom<NotesPage>({
-  key: "notesInfo",
-  default: { totalElements: "", content: [], size: 0, numberOfElements: 0 },
-});
-
-export const paginationState = atom({
-  key: "paginationInfo",
-  default: 0,
 });
