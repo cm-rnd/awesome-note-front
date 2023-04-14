@@ -2,6 +2,7 @@ import {
   MiddleNoteContainer,
   NoteTitle,
 } from "@/components/StyleComponent/NoteStyle";
+import useDataSet from "../hook/useDataSet";
 
 export function MiddleNote() {
   return (

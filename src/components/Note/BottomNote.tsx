@@ -23,6 +23,7 @@ import { AllNotes } from "../Board/AllNotes";
 import { Data, NotesPage } from "@/interfaces/CommonInterface";
 import usePagination from "../hook/usePagination";
 import { TeamNotes } from "../Board/TeamNotes";
+import useDataSet from "../hook/useDataSet";
 
 const Wrapper = styled.div`
   display: flex;
@@ -46,17 +47,30 @@ export function BottomNote() {
   const [noteId, setNoteId] = useRecoilState(noteIdState);
   const [folderId, setFolderId] = useRecoilState(folderIdState);
   const [noteData, setNoteData] = useRecoilState(notesInfoState);
-
   const { page, handlePageChange } = usePagination(Object.keys(notes).length);
+
+  const moveNote = useMutation(() => postMoveNote(noteId, folderId));
+
+  const { data, isFetched } = useQuery<Data>(["teamInfo"], axiosTeams);
+  useEffect(() => {
+    console.log(data, "팀이름");
+    console.log(data?.data.folderInfoList.length, "어떻게생겼지");
+    data?.data.folderInfoList.map((team) => {
+      setNotes((allBoards) => {
+        console.log(allBoards, "올보드");
+        return { ...allBoards, [team.folderName]: [] };
+      });
+    });
+    console.log(notes, "여기서는?");
+  }, [isFetched]);
+
   AllNotes(page[0], (num: number) => handlePageChange(0, num));
 
-  for (let i = 1; i < Object.keys(notes).length; i++) {
+  for (let i = 1; i < 5; i++) {
     TeamNotes(page[i], (num: number) => handlePageChange(i, num), i);
   }
 
-  const { data } = useQuery<Data>(["teamInfo"], axiosTeams);
-
-  const moveNote = useMutation(() => postMoveNote(noteId, folderId));
+  console.log(notes);
 
   const onDragEnd = (info: DropResult) => {
     console.log(info);
@@ -102,7 +116,7 @@ export function BottomNote() {
     if (folderId !== 0) {
       moveNote.mutate();
     }
-  }, [folderId]);
+  }, [noteId || folderId]);
 
   return (
     <BottomNoteContainer>

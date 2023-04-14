@@ -19,8 +19,6 @@ export const noteState = atom<NoteState>({
   key: "note",
   default: {
     전체노트: [],
-    "CM1-1": [],
-    "CM1-2": [],
   },
 });
 
