@@ -22,9 +22,12 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: ":noteId/page",
+        element: <NotePage />,
+      },
+      {
         path: ":teamId",
         element: <RefTeamNotesPage />,
-        children: [{ path: "page", element: <NotePage /> }],
       },
       {
         path: "allnotes",

@@ -55,9 +55,11 @@ export function ViewAllNotes() {
       <PageContainer title="All Notes" description="This is sample page">
         {noteData?.content.map((note) => {
           return (
-            <DashboardCard id={note.noteId} title={note.noteId}>
-              <Typography>{note.content}</Typography>
-            </DashboardCard>
+            <Link to={`/${note.noteId}/page`}>
+              <DashboardCard id={note.noteId} title={note.noteId}>
+                <Typography>{note.content}</Typography>
+              </DashboardCard>
+            </Link>
           );
         })}
         <Paging

@@ -9,6 +9,7 @@ import DashboardCard from "../DashBoardCard";
 import { Typography } from "@mui/material";
 import Paging from "../Paging";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 
 export function ViewTeamNotes() {
   const { teamId } = useParams();
@@ -35,12 +36,14 @@ export function ViewTeamNotes() {
   const number = teamNotesData?.totalElements ?? 0;
   return (
     <BottomNoteContainer>
-      <PageContainer title="Team Notes" description="This is sample page">
+      <PageContainer title="Team Notes" description="This is teamnote Page">
         {teamNotesData?.content.map((note) => {
           return (
-            <DashboardCard id={note.noteId} title={note.noteId}>
-              <Typography>{note.content}</Typography>
-            </DashboardCard>
+            <Link to={`/${note.noteId}/page`}>
+              <DashboardCard id={note.noteId} title={note.noteId}>
+                <Typography>{note.content}</Typography>
+              </DashboardCard>
+            </Link>
           );
         })}
         <Paging
