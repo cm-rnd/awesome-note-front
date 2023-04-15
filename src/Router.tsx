@@ -8,8 +8,8 @@ import Note from "./pages/Home/Switch/Note";
 import NotePage from "./pages/Home/Switch/NotePage";
 
 import Sign from "./pages/Sign/SignPage";
-import ReferenceNotePage from "./pages/Home/Switch/ReferenceNote";
 import RefTeamNotesPage from "./pages/Home/Switch/RefTeamNotes";
+import ReferenceNotePage from "./pages/Home/Switch/ReferenceNote";
 
 const router = createBrowserRouter([
   {
@@ -22,17 +22,14 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: ":noteId/page",
-        element: <NotePage />,
-      },
-      {
-        path: ":teamId",
+        path: "/page/:teamId",
         element: <RefTeamNotesPage />,
       },
       {
-        path: "allnotes",
-        element: <ReferenceNotePage />,
+        path: ":noteId",
+        element: <NotePage />,
       },
+      { path: "/page/allnotes", element: <ReferenceNotePage /> },
     ],
   },
   {

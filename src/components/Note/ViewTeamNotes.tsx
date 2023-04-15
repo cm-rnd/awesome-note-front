@@ -10,6 +10,7 @@ import { Typography } from "@mui/material";
 import Paging from "../Paging";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 export function ViewTeamNotes() {
   const { teamId } = useParams();
@@ -31,27 +32,34 @@ export function ViewTeamNotes() {
 
   useEffect(() => {
     setTeamNotes(teamNotesData);
-    console.log(teamNotes);
-  }, []);
+  }, [page]);
+
+  const ViewContainer = styled.div`
+    align-items: center;
+    width: 80%;
+  `;
+
   const number = teamNotesData?.totalElements ?? 0;
   return (
     <BottomNoteContainer>
-      <PageContainer title="Team Notes" description="This is teamnote Page">
-        {teamNotesData?.content.map((note) => {
-          return (
-            <Link to={`/${note.noteId}/page`}>
-              <DashboardCard id={note.noteId} title={note.noteId}>
-                <Typography>{note.content}</Typography>
-              </DashboardCard>
-            </Link>
-          );
-        })}
-        <Paging
-          page={page}
-          totalElement={+number}
-          handlePageChange={handlePageChange}
-        />
-      </PageContainer>
+      <ViewContainer>
+        <PageContainer title="Team Notes" description="This is teamnote Page">
+          {teamNotesData?.content.map((note) => {
+            return (
+              <Link to={`/${note.noteId}`}>
+                <DashboardCard id={note.noteId} title={note.noteId}>
+                  <Typography>{note.content}</Typography>
+                </DashboardCard>
+              </Link>
+            );
+          })}
+          <Paging
+            page={page}
+            totalElement={+number}
+            handlePageChange={handlePageChange}
+          />
+        </PageContainer>
+      </ViewContainer>
     </BottomNoteContainer>
   );
 }

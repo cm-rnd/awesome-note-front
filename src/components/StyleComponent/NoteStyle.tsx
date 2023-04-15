@@ -22,10 +22,10 @@ export const MiddleNoteContainer = styled.div`
   align-items: center;
   position: fixed;
   width: 100%;
-  top: 120.2px;
+  top: 7.8%;
   border-top: 1px solid #202020;
   right: 0;
-  width: 85%;
+  width: 100%;
   bottom: 10;
   background-color: #b1b4bc;
   font-size: 14px;
@@ -38,31 +38,30 @@ export const BottomNoteContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  width: 100%;
-  height: 84%;
-  top: 170.2px;
+  height: 90.4%;
+  top: 14.6%;
   border-top: 1px solid #202020;
-  right: 0;
-  width: 85%;
-  bottom: 10;
+
+  width: 100%;
+
   background-color: #b1b4bc;
   font-size: 14px;
-  padding: 20px 60px;
+
   color: white;
 `;
 
 export const CommentsContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   position: fixed;
   border-left: 2px solid #202020;
-  width: 100%;
-  height: 84%;
-  top: 170.2px;
+
+  height: 86%;
+  top: 14.8%;
   border-top: 1px solid #202020;
-  left: 57.5%;
-  width: 85%;
+  left: 64%;
+  width: 36%;
   bottom: 10;
   background-color: #b1b4bc;
   font-size: 14px;
@@ -73,15 +72,15 @@ export const CommentsContainer = styled.div`
 export const TextContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+
   position: fixed;
-  width: 100%;
-  height: 84%;
-  top: 170.2px;
+
+  height: 86%;
+  top: 14.8%;
   border-top: 1px solid #202020;
 
-  right: 0;
-  width: 85%;
+  width: 64%;
   bottom: 10;
   background-color: #b1b4bc;
   font-size: 14px;

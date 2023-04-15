@@ -13,7 +13,7 @@ interface IDashboardCard {
   id?: number;
 }
 
-const DashboardCard = ({
+const TextDashboardCard = ({
   title,
   subtitle,
   children,
@@ -26,7 +26,8 @@ const DashboardCard = ({
 }: IDashboardCard) => {
   return (
     <Card
-      sx={{ padding: 0, maxHeight: 120, margin: 1 }}
+      style={{ margin: 30, height: 450 }}
+      sx={{ padding: 2 }}
       elevation={9}
       variant={undefined}
     >
@@ -38,11 +39,11 @@ const DashboardCard = ({
           </Typography>
         </CardContent>
       ) : (
-        <CardContent sx={{ p: "13px" }}>
+        <CardContent sx={{ p: "20px" }}>
           {title ? (
             <Stack
               direction="row"
-              spacing={2}
+              spacing={1}
               justifyContent="space-between"
               alignItems={"center"}
               mb={3}
@@ -72,4 +73,4 @@ const DashboardCard = ({
   );
 };
 
-export default DashboardCard;
+export default TextDashboardCard;

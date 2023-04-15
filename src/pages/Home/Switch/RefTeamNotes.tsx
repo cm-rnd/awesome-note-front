@@ -6,7 +6,6 @@ import ViewTeamNotes from "@/components/Note/ViewTeamNotes";
 function RefTeamNotesPage() {
   return (
     <div>
-      <TopNote />
       <MiddleNote />
       <ViewTeamNotes />
     </div>

@@ -47,7 +47,9 @@ export async function requestNoteFolderData(
 ) {
   return await axios
     .get(
-      `http://localhost:8080/api/v1/notes/folders/${folderId}?page=0&size=${size}`,
+      `http://localhost:8080/api/v1/notes/folders/${folderId}?page=${
+        folderPage - 1
+      }&size=${size}`,
       {
         withCredentials: true,
       },
@@ -71,11 +73,52 @@ export async function requestNoteFolderData(
     });
 }
 
-export async function noteDetailData(noteId: number) {
+export async function noteDetailData(
+  noteId: number,
+  id: number,
+  loginId: string,
+  nickname: string,
+  role: string,
+) {
   return await axios
     .get(
-      `http://localhost:8080/api/v1/notes/${noteId}?id=34&loginId=ta14&nickname=1423&role=USER`,
+      `http://localhost:8080/api/v1/notes/${noteId}?id=${id}&loginId=${loginId}&nickname=${nickname}&role=${role}`,
       {
+        headers: { "Content-Type": "application/json;charset=UTF-8" },
+        withCredentials: true,
+      },
+    )
+    .then((res) => {
+      const data = res.data;
+      console.log(data);
+      return data;
+    })
+    .catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    });
+}
+
+export async function getComments(
+  noteId: number,
+  id: number,
+  loginId: string,
+  nickname: string,
+  role: string,
+) {
+  return await axios
+    .get(
+      `http://localhost:8080/api/v1/notes/${noteId}/comments?id=${id}&loginId=${loginId}&nickname=${nickname}&role=${role}&page=0&size=1`,
+      {
+        headers: { "Content-Type": "application/json;charset=UTF-8" },
         withCredentials: true,
       },
     )
@@ -115,6 +158,35 @@ export const postFiles = async (e: any) => {
   const formdata = e.target.files[0];
   axios
     .post(`http://localhost:8080/api/v1/notes`, { record: formdata }, config)
+    .then((data) => {
+      console.log(data);
+      alert("업로드 완료");
+      window.location.reload();
+    })
+    .catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+      alert("업로드 오류");
+    });
+};
+
+export const postComment = async (e: any, noteId: number) => {
+  // console.log(e.target.files[0]);
+  const formdata = e.target.files[0];
+  axios
+    .post(
+      `http://localhost:8080/api/v1/notes/${noteId}/comments`,
+      { record: formdata },
+      config,
+    )
     .then((data) => {
       console.log(data);
       alert("업로드 완료");

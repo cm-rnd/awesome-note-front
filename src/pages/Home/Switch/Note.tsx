@@ -1,3 +1,4 @@
+import { AllMiddleNote } from "@/components/Note/AllMiddleNote";
 import { BottomNote } from "@/components/Note/BottomNote";
 import { MiddleNote } from "@/components/Note/MiddleNote";
 import { TopNote } from "@/components/Note/TopNote";
@@ -6,8 +7,7 @@ import { Outlet } from "react-router-dom";
 function Note() {
   return (
     <div>
-      <TopNote />
-      <MiddleNote />
+      <AllMiddleNote />
       <BottomNote />
       <Outlet />
     </div>

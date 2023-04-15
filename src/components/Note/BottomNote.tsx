@@ -26,7 +26,7 @@ import { TeamNotes } from "../Board/TeamNotes";
 import useDataSet from "../hook/useDataSet";
 import { DefaultNotes } from "../Board/DefaultNotes";
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   width: 100vw;
   margin: 0 auto;
@@ -55,15 +55,11 @@ export function BottomNote() {
 
   const { data, isFetched } = useQuery<Data>(["teamInfo"], axiosTeams);
   useEffect(() => {
-    console.log(data, "팀이름");
-    console.log(data?.data.folderInfoList.length, "어떻게생겼지");
     data?.data.folderInfoList.map((team) => {
       setNotes((allBoards) => {
-        console.log(allBoards, "올보드");
         return { ...allBoards, [team.folderName]: [] };
       });
     });
-    console.log(notes, "여기서는?");
   }, [isFetched]);
 
   DefaultNotes(page[0], (num: number) => handlePageChange(0, num));

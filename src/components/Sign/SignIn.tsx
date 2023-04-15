@@ -9,6 +9,8 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { replaceAt } from "react-query/types/core/utils";
+import { useRecoilState } from "recoil";
+import { userInfoState } from "@/atoms/atoms";
 
 interface LoginFormData {
   loginId: string;
@@ -31,16 +33,16 @@ export function SignIn() {
     setError,
   } = useForm<LoginFormData>();
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies(["loginId"]);
+
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const LoginPost = (data: LoginFormData) => {
-    console.log(data);
     axios
       .post("http://localhost:8080/api/v1/login", data, {
         withCredentials: true,
       })
       .then(
         (res) => {
-          console.log(res);
+          setUserInfo(res.data.data);
 
           navigate(`/`);
         },

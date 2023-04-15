@@ -97,7 +97,7 @@ function TeamNote() {
       <Items>
         {data?.data.folderInfoList.map((team) => (
           <Item key={team.folderId}>
-            <Link to={`/${team.folderId}`} state={team}>
+            <Link to={`/page/${team.folderId}`} state={team}>
               {team.folderName}
             </Link>
           </Item>
