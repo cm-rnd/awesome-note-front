@@ -1,7 +1,7 @@
 import { Card, CardContent, Typography, Stack, Box } from "@mui/material";
 
 interface IDashboardCard {
-  title: any;
+  title?: any;
   subtitle?: string;
   children?: any;
   action?: any;
@@ -10,7 +10,7 @@ interface IDashboardCard {
   headtitle?: string;
   headsubtitle?: string;
   middlecontent?: string;
-  id: number;
+  id?: number;
 }
 
 const DashboardCard = ({

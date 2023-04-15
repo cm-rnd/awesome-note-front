@@ -71,6 +71,33 @@ export async function requestNoteFolderData(
     });
 }
 
+export async function noteDetailData(noteId: number) {
+  return await axios
+    .get(
+      `http://localhost:8080/api/v1/notes/${noteId}?id=34&loginId=ta14&nickname=1423&role=USER`,
+      {
+        withCredentials: true,
+      },
+    )
+    .then((res) => {
+      const data = res.data;
+      console.log(data);
+      return data;
+    })
+    .catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    });
+}
+
 const config = {
   headers: { "Content-Type": "multipart/form-data" },
   withCredentials: true,
