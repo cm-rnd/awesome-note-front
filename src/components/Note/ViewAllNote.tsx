@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import {
+  BottomNoteContainer,
   NoteItem,
   NoteItems,
   RefNoteContainer,
@@ -16,6 +17,11 @@ import { requestNoteData } from "@/apis/Api";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import PageContainer from "../PageContainer";
+import DashboardCard from "../DashBoardCard";
+import { Pagination, Typography } from "@mui/material";
+import { BottomNote } from "./BottomNote";
+import Paging from "../Paging";
 
 export function ViewAllNotes() {
   const { noteId } = useParams();
@@ -32,28 +38,34 @@ export function ViewAllNotes() {
       refetchOnMount: true,
     },
   );
-  const NoteTitle = styled.div`
-    font-size: 30px;
-  `;
+
+  const handlePageChange = (page: number) => {
+    setPage(page);
+  };
+
   const [allNotes, setAllNotes] = useState<NotesPage>();
 
   useEffect(() => {
     setAllNotes(noteData);
     console.log(allNotes);
   }, []);
-
+  const number = noteData?.totalElements ?? 0;
   return (
-    <RefNoteContainer>
-      <RefNoteTitle>All Note</RefNoteTitle>
-      <RefNoteItems>
-        {noteData?.content.map((note) => (
-          <RefNoteItem key={note.folderId}>
-            <Link to={`/${note.folderId}`} state={note}>
-              {note.content}
-            </Link>
-          </RefNoteItem>
-        ))}
-      </RefNoteItems>
-    </RefNoteContainer>
+    <BottomNoteContainer>
+      <PageContainer title="All Notes" description="This is sample page">
+        {noteData?.content.map((note) => {
+          return (
+            <DashboardCard id={note.noteId} title={note.noteId}>
+              <Typography>{note.content}</Typography>
+            </DashboardCard>
+          );
+        })}
+        <Paging
+          page={page}
+          totalElement={+number}
+          handlePageChange={handlePageChange}
+        />
+      </PageContainer>
+    </BottomNoteContainer>
   );
 }

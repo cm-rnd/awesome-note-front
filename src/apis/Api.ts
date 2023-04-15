@@ -43,10 +43,11 @@ export async function requestNoteData(page: number, size: number) {
 export async function requestNoteFolderData(
   folderId: number,
   folderPage: number,
+  size: number,
 ) {
   return await axios
     .get(
-      `http://localhost:8080/api/v1/notes/folders/${folderId}?page=0&size=50`,
+      `http://localhost:8080/api/v1/notes/folders/${folderId}?page=0&size=${size}`,
       {
         withCredentials: true,
       },

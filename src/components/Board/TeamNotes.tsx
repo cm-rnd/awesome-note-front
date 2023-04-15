@@ -13,9 +13,11 @@ export function TeamNotes(
 ) {
   const [notes, setNotes] = useRecoilState(noteState);
 
+  const size = 40;
+
   const { data: teamNoteData, isFetched } = useQuery<NotesPage>(
-    ["noteFolderInfo", folderId, folderPage],
-    () => requestNoteFolderData(folderId, folderPage),
+    ["noteFolderInfo", folderId, folderPage, size],
+    () => requestNoteFolderData(folderId, folderPage, size),
   );
 
   useEffect(() => {

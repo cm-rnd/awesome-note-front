@@ -9,6 +9,7 @@ import NotePage from "./pages/Home/Switch/NotePage";
 
 import Sign from "./pages/Sign/SignPage";
 import ReferenceNotePage from "./pages/Home/Switch/ReferenceNote";
+import RefTeamNotesPage from "./pages/Home/Switch/RefTeamNotes";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
       },
       {
         path: ":teamId",
-        element: <Note />,
+        element: <RefTeamNotesPage />,
         children: [{ path: "page", element: <NotePage /> }],
       },
       {
