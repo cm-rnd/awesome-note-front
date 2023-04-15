@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { BottomNoteContainer } from "@/components/StyleComponent/NoteStyle";
 import { useRecoilState } from "recoil";
+
 import styled from "styled-components";
 import {
   DragDropContext,
@@ -19,11 +20,11 @@ import Board from "../Board";
 import { axiosTeams, postMoveNote } from "@/apis/Api";
 import { useMutation, useQuery } from "react-query";
 
-import { AllNotes } from "../Board/AllNotes";
 import { Data, NotesPage } from "@/interfaces/CommonInterface";
 import usePagination from "../hook/usePagination";
 import { TeamNotes } from "../Board/TeamNotes";
 import useDataSet from "../hook/useDataSet";
+import { DefaultNotes } from "../Board/DefaultNotes";
 
 const Wrapper = styled.div`
   display: flex;
@@ -42,6 +43,7 @@ const Boards = styled.div`
   gap: 10px;
 `;
 
+function Column() {}
 export function BottomNote() {
   const [notes, setNotes] = useRecoilState(noteState);
   const [noteId, setNoteId] = useRecoilState(noteIdState);
@@ -64,8 +66,7 @@ export function BottomNote() {
     console.log(notes, "여기서는?");
   }, [isFetched]);
 
-  AllNotes(page[0], (num: number) => handlePageChange(0, num));
-
+  DefaultNotes(page[0], (num: number) => handlePageChange(0, num));
   for (let i = 1; i < 5; i++) {
     TeamNotes(page[i], (num: number) => handlePageChange(i, num), i);
   }

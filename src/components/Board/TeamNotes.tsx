@@ -26,13 +26,6 @@ export function TeamNotes(
     const boardName = Object.keys(notes);
     const numElement = teamNoteData?.numberOfElements ?? 0;
 
-    setNotes((allBoards) => {
-      let notes = { ...allBoards };
-
-      notes[boardName[folderId]] = [];
-      return notes;
-    });
-
     for (let j = 0; j < numElement; j++) {
       setNotes((allBoards) => {
         let notes = { ...allBoards };

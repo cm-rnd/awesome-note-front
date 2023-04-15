@@ -6,16 +6,20 @@ import { requestNoteData, requestNoteFolderData } from "@/apis/Api";
 import { useEffect } from "react";
 import { NotesPage } from "@/interfaces/CommonInterface";
 
-export function AllNotes(page: number, setPage: (num: number) => void) {
+export function DefaultNotes(page: number, setPage: (num: number) => void) {
   const [notes, setNotes] = useRecoilState(noteState);
-
+  const size = 40;
   const {
     data: noteData,
     isFetched,
     refetch,
-  } = useQuery<NotesPage>([`noteInfo`, page], () => requestNoteData(page), {
-    refetchOnMount: true,
-  });
+  } = useQuery<NotesPage>(
+    [`noteInfo`, page, size],
+    () => requestNoteData(page, size),
+    {
+      refetchOnMount: true,
+    },
+  );
 
   useEffect(() => {
     if (!noteData) {

@@ -12,10 +12,10 @@ export async function axiosTeams() {
     });
 }
 
-export async function requestNoteData(page: number) {
+export async function requestNoteData(page: number, size: number) {
   return await axios
     .get(
-      `http://localhost:8080/api/v1/notes?page=${page - 1}&size=40
+      `http://localhost:8080/api/v1/notes?page=${page - 1}&size=${size}
     `,
       {
         withCredentials: true,

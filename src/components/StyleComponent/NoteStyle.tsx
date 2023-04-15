@@ -111,3 +111,35 @@ export const NoteTitle = styled.div`
   align-items: center;
   margin: 0 auto;
 `;
+export const RefNoteTitle = styled.div`
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+`;
+
+export const RefNoteContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: 84%;
+  top: 170.2px;
+  border-top: 1px solid #202020;
+  text-align: center;
+`;
+
+export const RefNoteItems = styled.ul`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  margin: 100px;
+`;
+
+export const RefNoteItem = styled.li`
+  font-size: 20px;
+  margin-right: 20px;
+  justify-content: space-between;
+`;
