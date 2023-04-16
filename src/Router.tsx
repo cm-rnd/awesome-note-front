@@ -7,7 +7,7 @@ import Note from "./pages/Home/Switch/Note";
 import NotePage from "./pages/Home/Switch/NotePage";
 
 import RefTeamNotesPage from "./pages/Home/Switch/RefTeamNotes";
-import ReferenceNotePage from "./pages/Home/Switch/ReferenceNote";
+import RefNotePage from "./pages/Home/Switch/RefNote";
 import { Join } from "./components/Login/Join";
 import { LogIn } from "./components/Login/LogIn";
 
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         path: ":noteId",
         element: <NotePage />,
       },
-      { path: "/page/allnotes", element: <ReferenceNotePage /> },
+      { path: "/page/allnotes", element: <RefNotePage /> },
     ],
   },
   {

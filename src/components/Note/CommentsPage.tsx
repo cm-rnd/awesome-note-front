@@ -1,5 +1,5 @@
 import { Container, Typography } from "@mui/material";
-import PageContainer from "../PageContainer";
+import PageContainer from "../Layout/PageContainer";
 import { CommentsContainer, TextContainer } from "../StyleComponent/NoteStyle";
 import TextDashboardCard from "../Upload/TextDashBoard";
 import styled from "styled-components";

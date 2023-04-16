@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 
 import { BottomNoteContainer } from "../StyleComponent/NoteStyle";
-import PageContainer from "../PageContainer";
+import PageContainer from "../Layout/PageContainer";
 import DashboardCard from "../Board/DashBoardCard";
 import { Typography } from "@mui/material";
-import Paging from "../Paging";
+import Paging from "../Layout/Paging";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";

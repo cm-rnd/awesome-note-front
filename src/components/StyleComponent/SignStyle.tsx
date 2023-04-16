@@ -23,7 +23,7 @@ export const SignForm = styled.form`
   flex-direction: column;
   max-width: 320px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 1rem;
   background-color: #0d121ebf;
   border-radius: 5px;
   border: 1px solid rgba($color: #fff, $alpha: 0.208);
@@ -32,4 +32,19 @@ export const SignForm = styled.form`
 export const Message = styled.div`
   margin: 0 auto;
   text-align: center;
+`;
+
+export const Layout = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+
+  background: #0d121ebf;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;

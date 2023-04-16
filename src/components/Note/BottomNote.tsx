@@ -1,5 +1,8 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { BottomNoteContainer } from "@/components/StyleComponent/NoteStyle";
+import {
+  BottomNoteContainer,
+  HomeNoteContainer,
+} from "@/components/StyleComponent/NoteStyle";
 import { useRecoilState } from "recoil";
 
 import styled from "styled-components";
@@ -115,7 +118,7 @@ export function BottomNote() {
   }, [noteId || folderId]);
 
   return (
-    <BottomNoteContainer>
+    <HomeNoteContainer>
       <DragDropContext onDragEnd={onDragEnd}>
         <Wrapper>
           <Boards>
@@ -132,6 +135,6 @@ export function BottomNote() {
           </Boards>
         </Wrapper>
       </DragDropContext>
-    </BottomNoteContainer>
+    </HomeNoteContainer>
   );
 }

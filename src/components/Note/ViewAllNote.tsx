@@ -17,11 +17,11 @@ import { requestNoteData } from "@/apis/Api";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import PageContainer from "../PageContainer";
+import PageContainer from "../Layout/PageContainer";
 import DashboardCard from "../Board/DashBoardCard";
 import { Pagination, Typography } from "@mui/material";
 import { BottomNote } from "./BottomNote";
-import Paging from "../Paging";
+import Paging from "../Layout/Paging";
 
 export function ViewAllNotes() {
   const { noteId } = useParams();

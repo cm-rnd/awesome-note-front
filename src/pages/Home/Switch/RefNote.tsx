@@ -1,7 +1,7 @@
 import { AllMiddleNote } from "@/components/Note/AllMiddleNote";
 import { ViewAllNotes } from "@/components/Note/ViewAllNote";
 
-function ReferenceNotePage() {
+function RefNotePage() {
   return (
     <div>
       <AllMiddleNote />
@@ -9,4 +9,4 @@ function ReferenceNotePage() {
     </div>
   );
 }
-export default ReferenceNotePage;
+export default RefNotePage;
