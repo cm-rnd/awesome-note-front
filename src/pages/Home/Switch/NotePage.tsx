@@ -1,8 +1,7 @@
 import { CommentsPage } from "@/components/Note/CommentsPage";
 import { DetailMiddleNote } from "@/components/Note/DetailMiddleNote";
-import { MiddleNote } from "@/components/Note/MiddleNote";
 import { TextPage } from "@/components/Note/TextPage";
-import { TopNote } from "@/components/Note/TopNote";
+
 import {
   CommentsContainer,
   TextContainer,

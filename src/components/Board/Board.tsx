@@ -4,7 +4,7 @@ import DraggableCard from "./DragabbleCard";
 import { noteState } from "@/atoms/atoms";
 import Note from "@/pages/Home/Switch/Note";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import Paging from "./Paging";
+import Paging from "../Paging";
 import { INote } from "@/interfaces/CommonInterface";
 import { Dispatch, SetStateAction } from "react";
 

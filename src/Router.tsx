@@ -1,15 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import { SignIn } from "./components/Sign/SignIn";
-import { SignUp } from "./components/Sign/SignUp";
+
 import Home from "./pages/Home/Home";
 import Note from "./pages/Home/Switch/Note";
 
 import NotePage from "./pages/Home/Switch/NotePage";
 
-import Sign from "./pages/Sign/SignPage";
 import RefTeamNotesPage from "./pages/Home/Switch/RefTeamNotes";
 import ReferenceNotePage from "./pages/Home/Switch/ReferenceNote";
+import { Join } from "./components/Login/Join";
+import { LogIn } from "./components/Login/LogIn";
 
 const router = createBrowserRouter([
   {
@@ -33,12 +33,12 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "signup",
-    element: <SignUp />,
+    path: "join",
+    element: <Join />,
   },
   {
-    path: "signin",
-    element: <SignIn />,
+    path: "login",
+    element: <LogIn />,
   },
 ]);
 

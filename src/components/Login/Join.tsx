@@ -28,7 +28,7 @@ interface ApiForm {
   password: string;
 }
 
-export function SignUp() {
+export function Join() {
   const {
     register,
     handleSubmit,

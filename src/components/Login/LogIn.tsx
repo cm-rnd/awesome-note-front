@@ -25,7 +25,7 @@ interface SessionData {
   token: string;
 }
 
-export function SignIn() {
+export function LogIn() {
   const {
     register,
     handleSubmit,

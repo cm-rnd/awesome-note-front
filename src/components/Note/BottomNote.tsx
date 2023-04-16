@@ -15,7 +15,7 @@ import {
   noteState,
   notesInfoState,
 } from "@/atoms/atoms";
-import Board from "../Board";
+import Board from "../Board/Board";
 
 import { axiosTeams, postMoveNote } from "@/apis/Api";
 import { useMutation, useQuery } from "react-query";

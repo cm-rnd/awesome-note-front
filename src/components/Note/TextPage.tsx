@@ -5,7 +5,7 @@ import {
   NoteItems,
   TextContainer,
 } from "../StyleComponent/NoteStyle";
-import DashboardCard from "../DashBoardCard";
+import DashboardCard from "../Board/DashBoardCard";
 import PageContainer from "../PageContainer";
 import { useParams } from "react-router";
 import { useQuery } from "react-query";

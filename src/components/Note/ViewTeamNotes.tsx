@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 
 import { BottomNoteContainer } from "../StyleComponent/NoteStyle";
 import PageContainer from "../PageContainer";
-import DashboardCard from "../DashBoardCard";
+import DashboardCard from "../Board/DashBoardCard";
 import { Typography } from "@mui/material";
 import Paging from "../Paging";
 import { useParams } from "react-router";
