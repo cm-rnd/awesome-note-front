@@ -90,6 +90,7 @@ export function Join() {
 
           <span>{errors?.loginId?.message}</span>
           <SignInput
+            type="password"
             {...register("password", {
               required: "Password is requred",
               minLength: {
@@ -102,6 +103,7 @@ export function Join() {
 
           <span>{errors?.password?.message}</span>
           <SignInput
+            type="password"
             {...register("passwordCheck", {
               required: "Passwordcheck is requred",
 

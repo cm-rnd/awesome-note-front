@@ -10,8 +10,6 @@ import {
 } from "../StyleComponent/SignStyle";
 import { useNavigate } from "react-router";
 import axios from "axios";
-import { useCookies } from "react-cookie";
-import { replaceAt } from "react-query/types/core/utils";
 import { useRecoilState } from "recoil";
 import { userInfoState } from "@/atoms/atoms";
 
@@ -73,6 +71,7 @@ export function LogIn() {
           />
           <span>{errors?.loginId?.message}</span>
           <SignInput
+            type="password"
             {...register("password", { required: true, minLength: 1 })}
             placeholder="Password"
           />
