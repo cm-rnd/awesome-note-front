@@ -42,9 +42,36 @@ export const Layout = styled.div`
   bottom: 0;
   right: 0;
 
-  background: #0d121ebf;
+  background: #bdcdd6;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+export const WhiteBox = styled.div`
+  .logo-area {
+    display: block;
+    padding-bottom: 2rem;
+    font-weight: bold;
+
+    letter-spacing: 2px;
+  }
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.025);
+  padding: 2rem;
+  width: 22rem;
+  background: rgb(255, 255, 255, 0.5);
+  border-radius: 1rem;
+`;
+
+export const Title = styled.title`
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-align: match-parent;
+
+  width: 16rem;
+  height: 1.7rem;
+  padding: 1.25rem;
+  border-radius: 0.8rem 0.8rem 0 0;
 `;
