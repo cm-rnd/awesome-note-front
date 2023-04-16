@@ -5,7 +5,7 @@ import { RouterProvider } from "react-router-dom";
 import App from "./App";
 import router from "./Router";
 import { RecoilRoot } from "recoil";
-import { darkTheme } from "./themes/theme";
+import { lightTheme } from "./themes/theme";
 import { ThemeProvider } from "styled-components";
 
 const queryClient = new QueryClient();
@@ -15,7 +15,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <RecoilRoot>
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={lightTheme}>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
       </QueryClientProvider>

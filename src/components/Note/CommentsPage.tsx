@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import { userInfoState } from "@/atoms/atoms";
 import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router";
-import { getComments, postComment } from "@/apis/Api";
+import { getComments } from "@/apis/Api";
 import { useRef } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
