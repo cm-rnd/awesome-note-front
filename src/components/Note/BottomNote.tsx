@@ -43,12 +43,11 @@ const Boards = styled.div`
   gap: 10px;
 `;
 
-function Column() {}
 export function BottomNote() {
   const [notes, setNotes] = useRecoilState(noteState);
   const [noteId, setNoteId] = useRecoilState(noteIdState);
   const [folderId, setFolderId] = useRecoilState(folderIdState);
-  const [noteData, setNoteData] = useRecoilState(notesInfoState);
+
   const { page, handlePageChange } = usePagination(Object.keys(notes).length);
 
   const moveNote = useMutation(() => postMoveNote(noteId, folderId));

@@ -36,10 +36,38 @@ const Nav = styled.nav`
   position: fixed;
   width: 100%;
   top: 0px;
-  background-color: black;
-  font-size: 14px;
-  padding: 20px 60px;
-  color: white;
+  background-color: #bdcdd6;
+  font-size: 2rem;
+  padding: 1.2rem 4rem;
+  color: #eee9da;
+`;
+const Buttons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  transition: color 0.3s;
+  color: ${(props) => props.theme.secondaryTextColor};
+`;
+const Button = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  width: 2rem;
+  height: 2rem;
+  background: none;
+  border: none;
+  transition: color 0.3s;
+  padding: 0;
+  border-radius: 0.2rem;
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    color: ${(props) => props.theme.accentColor};
+  }
+  &:focus {
+    outline: 0.15rem solid ${(props) => props.theme.accentColor};
+  }
 `;
 
 const Column = styled.div`
@@ -52,22 +80,8 @@ const Items = styled.ul`
   align-items: center;
 `;
 const Item = styled.li`
-  font-size: 20px;
+  font-size: 1rem;
   margin-right: 50px;
-`;
-
-const Search = styled.span`
-  color: white;
-  svg {
-    height: 25px;
-  }
-`;
-
-const User = styled.span`
-  color: white;
-  svg {
-    height: 25px;
-  }
 `;
 
 const FolderInput = styled.input`
@@ -102,7 +116,7 @@ const FolderForm = styled.form`
 interface FolderNameForm {
   name: "string";
 }
-function TsbComponent() {
+function NavComponent() {
   const {
     register,
     handleSubmit,
@@ -186,7 +200,7 @@ function TsbComponent() {
       </Column>
 
       <Column>
-        <Items>
+        <Buttons>
           {userInfo.role === "ADMIN" ? (
             <Item>
               {" "}
@@ -203,7 +217,8 @@ function TsbComponent() {
               </FolderForm>
             </Item>
           ) : null}
-          <Item>
+
+          <Button>
             <FontAwesomeIcon
               cursor={faHandPointer as any}
               onClick={handleButtonClick}
@@ -215,14 +230,15 @@ function TsbComponent() {
               onChange={mutate}
               style={{ display: "none" }}
             />
-          </Item>
-        </Items>
-        <User>
-          <FontAwesomeIcon icon={faUser} />
-        </User>
+          </Button>
+
+          <Button>
+            <FontAwesomeIcon icon={faUser} />
+          </Button>
+        </Buttons>
       </Column>
     </Nav>
   );
 }
 
-export default TsbComponent;
+export default NavComponent;
