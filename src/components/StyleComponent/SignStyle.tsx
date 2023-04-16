@@ -61,7 +61,7 @@ export const WhiteBox = styled.div`
   padding: 2rem;
   width: 22rem;
   background: rgb(255, 255, 255, 0.5);
-  border-radius: 1rem;
+  border-radius: rem;
 `;
 
 export const Title = styled.title`

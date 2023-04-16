@@ -9,7 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef } from "react";
 import { useMutation, useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
@@ -130,9 +130,20 @@ function NavComponent() {
   const handleButtonClick = () => {
     fileInputRef.current?.click();
   };
-
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const navigate = useNavigate();
+  const handleClickLogout = () => {
+    axios
+      .post(`http://localhost:8080/api/v1/logout`, null, {
+        withCredentials: true,
+      })
+      .then((data) => {
+        console.log(data);
+        window.alert(`로그아웃`);
+        navigate(`/login`);
+      });
+  };
 
   const createFolder = async (folderName: FolderNameForm) => {
     const body = {
@@ -202,7 +213,7 @@ function NavComponent() {
       <Column>
         <Buttons>
           {userInfo.role === "ADMIN" ? (
-            <Item>
+            <div>
               {" "}
               <FolderForm onSubmit={handleSubmit(createFolder)}>
                 <FolderInput
@@ -215,7 +226,7 @@ function NavComponent() {
 
                 <FolderButton>폴더 생성</FolderButton>
               </FolderForm>
-            </Item>
+            </div>
           ) : null}
 
           <Button>
@@ -232,7 +243,7 @@ function NavComponent() {
             />
           </Button>
 
-          <Button>
+          <Button onClick={handleClickLogout}>
             <FontAwesomeIcon icon={faUser} />
           </Button>
         </Buttons>

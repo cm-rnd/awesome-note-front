@@ -137,7 +137,7 @@ export function Join() {
         </SignForm>
         <Message>
           <span> Already have an account? </span>
-          <a href="/login"> Log in now &rarr; </a>
+          <a href="/login"> Log In now &rarr; </a>
         </Message>
       </WhiteBox>
     </Layout>
