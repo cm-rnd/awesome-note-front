@@ -1,8 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import LsbComponent from "./pages/Home/Layout/LsbComponent";
 import { createGlobalStyle } from "styled-components";
-import TsbComponent from "./pages/Home/Layout/TsbComponent";
+import NavComponent from "./components/Layout/NavComponent";
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap');
@@ -70,8 +69,7 @@ const App = () => {
     <>
       <div>
         <GlobalStyle />
-        <TsbComponent />
-        <LsbComponent />
+        <NavComponent />
         <Outlet />
       </div>
     </>

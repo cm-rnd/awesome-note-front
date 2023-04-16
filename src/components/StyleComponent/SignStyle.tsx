@@ -23,7 +23,7 @@ export const SignForm = styled.form`
   flex-direction: column;
   max-width: 320px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 1rem;
   background-color: #0d121ebf;
   border-radius: 5px;
   border: 1px solid rgba($color: #fff, $alpha: 0.208);
@@ -32,4 +32,46 @@ export const SignForm = styled.form`
 export const Message = styled.div`
   margin: 0 auto;
   text-align: center;
+`;
+
+export const Layout = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+
+  background: #bdcdd6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const WhiteBox = styled.div`
+  .logo-area {
+    display: block;
+    padding-bottom: 2rem;
+    font-weight: bold;
+
+    letter-spacing: 2px;
+  }
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.025);
+  padding: 2rem;
+  width: 22rem;
+  background: rgb(255, 255, 255, 0.5);
+  border-radius: rem;
+`;
+
+export const Title = styled.title`
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-align: match-parent;
+
+  width: 16rem;
+  height: 1.7rem;
+  padding: 1.25rem;
+  border-radius: 0.8rem 0.8rem 0 0;
 `;

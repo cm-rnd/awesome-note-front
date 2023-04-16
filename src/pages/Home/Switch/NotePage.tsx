@@ -1,7 +1,7 @@
 import { CommentsPage } from "@/components/Note/CommentsPage";
-import { MiddleNote } from "@/components/Note/MiddleNote";
+import { DetailMiddleNote } from "@/components/Note/DetailMiddleNote";
 import { TextPage } from "@/components/Note/TextPage";
-import { TopNote } from "@/components/Note/TopNote";
+
 import {
   CommentsContainer,
   TextContainer,
@@ -12,8 +12,7 @@ import styled from "styled-components";
 function NotePage() {
   return (
     <div>
-      <TopNote />
-      <MiddleNote />
+      <DetailMiddleNote />
       <TextPage />
       <CommentsPage />
     </div>
