@@ -1,5 +1,7 @@
+import { teamData } from "@/atoms/atoms";
 import axios, { Axios, AxiosResponse } from "axios";
 import { useMutation } from "react-query";
+import { useRecoilState } from "recoil";
 
 export async function axiosTeams() {
   return await axios
@@ -7,7 +9,17 @@ export async function axiosTeams() {
       withCredentials: true,
     })
     .then((res) => {
-      console.log(res); // 요청 확인용
+      return res.data;
+    });
+}
+
+export async function axiosUser() {
+  return await axios
+    .get("http://localhost:8080/api/v1/users/info?", {
+      withCredentials: true,
+    })
+    .then((res) => {
+      console.log(res);
       return res.data;
     });
 }
@@ -23,7 +35,6 @@ export async function requestNoteData(page: number, size: number) {
     )
     .then((res) => {
       const data = res.data.data.noteInfoList;
-      console.log(data);
       return data;
     })
     .catch(function (error) {
@@ -56,7 +67,6 @@ export async function requestNoteFolderData(
     )
     .then((res) => {
       const data = res.data.data.noteInfoList;
-      console.log(data);
       return data;
     })
     .catch(function (error) {
@@ -90,7 +100,7 @@ export async function noteDetailData(
     )
     .then((res) => {
       const data = res.data;
-      console.log(data);
+
       return data;
     })
     .catch(function (error) {
@@ -116,15 +126,15 @@ export async function getComments(
 ) {
   return await axios
     .get(
-      `http://localhost:8080/api/v1/notes/${noteId}/comments?id=${id}&loginId=${loginId}&nickname=${nickname}&role=${role}&page=0&size=1`,
+      `http://localhost:8080/api/v1/notes/${noteId}/comments?id=${id}&loginId=${loginId}&nickname=${nickname}&role=${role}&page=0&size=8`,
       {
         headers: { "Content-Type": "application/json;charset=UTF-8" },
         withCredentials: true,
       },
     )
     .then((res) => {
-      const data = res.data;
-      console.log(data);
+      const data = res.data.data.content;
+
       return data;
     })
     .catch(function (error) {
@@ -159,7 +169,6 @@ export const postFiles = async (e: any) => {
   axios
     .post(`http://localhost:8080/api/v1/notes`, { record: formdata }, config)
     .then((data) => {
-      console.log(data);
       alert("업로드 완료");
       window.location.reload();
     })
@@ -186,7 +195,6 @@ export async function postMoveNote(noteId: number, folderId: number) {
       { withCredentials: true },
     )
     .then((data) => {
-      console.log(data);
       alert("업로드 완료");
     })
     .catch(function (error) {
@@ -203,35 +211,3 @@ export async function postMoveNote(noteId: number, folderId: number) {
       alert("업로드 오류");
     });
 }
-
-/*
-export async function PostFiles(event: any) {
-  return await axios
-    .post(
-      `http://localhost:8080/api/v1/notes`,
-      { record: event.target.files[0] },
-      {
-        headers: { "Content-Type": "multipart/form-data" },
-        withCredentials: true,
-      },
-    )
-    .then((data) => {
-      console.log(data);
-      alert("업로드 완료");
-      window.location.reload();
-    })
-    .catch(function (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
-      }
-      console.log(error.config);
-      alert("업로드 오류");
-    });
-}
-*/

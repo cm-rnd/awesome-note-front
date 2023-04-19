@@ -7,7 +7,7 @@ export const MiddleNoteContainer = styled.div`
   position: fixed;
   width: 100%;
   top: 7.8%;
-  border-top: 1px solid #202020;
+  border-top: 0.1rem solid #5115152d;
   right: 0;
   width: 100%;
   bottom: 10;
@@ -26,7 +26,7 @@ export const BottomNoteContainer = styled.div`
   height: 90.4%;
   top: 14.6%;
 
-  border-top: 1px solid #202020;
+  border-top: 0.1rem solid #5115152d;
   width: 100%;
   background-color: #bdcdd6;
   font-size: 0.9rem;
@@ -41,7 +41,7 @@ export const HomeNoteContainer = styled.div`
   height: 90.4%;
   top: 14.6%;
 
-  border-top: 1px solid #202020;
+  border-top: 0.1rem solid #5115152d;
   width: 100%;
   background-color: #bdcdd6;
   font-size: 0.9rem;
@@ -136,4 +136,8 @@ export const RefNoteItem = styled.li`
   font-size: 20px;
   margin-right: 20px;
   justify-content: space-between;
+`;
+export const ViewContainer = styled.div`
+  align-items: center;
+  width: 80%;
 `;

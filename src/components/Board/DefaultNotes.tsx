@@ -25,6 +25,7 @@ export function DefaultNotes(page: number, setPage: (num: number) => void) {
     if (!noteData) {
       return;
     }
+
     const boardTitle = Object.keys(notes);
     const boardIndex = Object.keys(notes).map((title, index) => {
       return index;

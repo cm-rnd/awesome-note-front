@@ -132,10 +132,11 @@ function Board({ notes, boardId, title }: IboardProps) {
             >
               {notes.map((note, index) => (
                 <DraggableCard
+                  writerId={note.writerId}
                   key={note.noteId}
                   index={index}
                   noteId={note.noteId}
-                  context={`제목: ${note.noteId} 작성자: ${note.writerNickname} 팀: ${note.folderName}`}
+                  context={`제목: ${note.noteId} 작성자: ${note.writerNickname}`}
                 />
               ))}
 

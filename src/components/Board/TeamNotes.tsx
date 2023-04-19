@@ -21,27 +21,29 @@ export function TeamNotes(
   );
 
   useEffect(() => {
-    const boardIndex = Object.keys(notes).map((title, index) => {
-      return index;
-    });
-    console.log(boardIndex, "보드인덱스");
-    const boardName = Object.keys(notes);
-    const numElement = teamNoteData?.numberOfElements ?? 0;
-
-    for (let j = 0; j < numElement; j++) {
-      setNotes((allBoards) => {
-        let notes = { ...allBoards };
-
-        const allnote = [...allBoards[boardName[folderId]]];
-        const noteObj = teamNoteData?.content[j];
-
-        if (noteObj) {
-          allnote.splice(allnote.length, 0, noteObj);
-          notes[boardName[folderId]] = allnote;
-        }
-
-        return notes;
+    if (isFetched) {
+      const boardIndex = Object.keys(notes).map((title, index) => {
+        return index;
       });
+
+      const boardName = Object.keys(notes);
+      const numElement = teamNoteData?.numberOfElements ?? 0;
+
+      for (let j = 0; j < numElement; j++) {
+        setNotes((allBoards) => {
+          let notes = { ...allBoards };
+
+          const allnote = [...allBoards[boardName[folderId]]];
+          const noteObj = teamNoteData?.content[j];
+
+          if (noteObj) {
+            allnote.splice(allnote.length, 0, noteObj);
+            notes[boardName[folderId]] = allnote;
+          }
+
+          return notes;
+        });
+      }
     }
   }, [isFetched]);
 }

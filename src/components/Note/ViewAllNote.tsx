@@ -1,37 +1,22 @@
 import { useParams } from "react-router-dom";
-import {
-  BottomNoteContainer,
-  NoteItem,
-  NoteItems,
-  RefNoteContainer,
-  RefNoteItem,
-  RefNoteItems,
-  RefNoteTitle,
-  TextContainer,
-} from "../StyleComponent/NoteStyle";
-import { useRecoilState } from "recoil";
-import { noteState } from "@/atoms/atoms";
+import { BottomNoteContainer } from "../StyleComponent/NoteStyle";
+
 import { useQuery } from "react-query";
 import { NotesPage } from "@/interfaces/CommonInterface";
 import { requestNoteData } from "@/apis/Api";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import styled from "styled-components";
+import { useEffect, useState } from "react";
+
 import { Link } from "react-router-dom";
 import PageContainer from "../Layout/PageContainer";
 import DashboardCard from "../Board/DashBoardCard";
-import { Pagination, Typography } from "@mui/material";
-import { BottomNote } from "./BottomNote";
+import { Typography } from "@mui/material";
+
 import Paging from "../Layout/Paging";
 
 export function ViewAllNotes() {
-  const { noteId } = useParams();
   const [page, setPage] = useState(1);
   const size = 5;
-  const {
-    data: noteData,
-    isFetched,
-    refetch,
-  } = useQuery<NotesPage>(
+  const { data: noteData } = useQuery<NotesPage>(
     [`noteInfo`, page],
     () => requestNoteData(page, size),
     {
@@ -43,19 +28,13 @@ export function ViewAllNotes() {
     setPage(page);
   };
 
-  const [allNotes, setAllNotes] = useState<NotesPage>();
-
-  useEffect(() => {
-    setAllNotes(noteData);
-    console.log(allNotes);
-  }, []);
   const number = noteData?.totalElements ?? 0;
   return (
     <BottomNoteContainer>
-      <PageContainer title="All Notes" description="This is sample page">
+      <PageContainer title="All Notes" description="This is Allnote Page">
         {noteData?.content.map((note) => {
           return (
-            <Link to={`/${note.noteId}`}>
+            <Link to={`/${note.noteId}`} key={note.noteId}>
               <DashboardCard id={note.noteId} title={note.noteId}>
                 <Typography>{note.content}</Typography>
               </DashboardCard>

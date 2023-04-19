@@ -42,13 +42,11 @@ export function Join() {
 
   const navigate = useNavigate();
   const onPost = (data: Form) => {
-    console.log(data);
     axios
       .post<ApiForm>("http://localhost:8080/api/v1/signup", data, {
         headers: { ContentType: "application/json" },
       })
       .then((res) => {
-        console.log(res);
         window.alert(`회원가입 완료`);
         navigate(`/login`);
       })
