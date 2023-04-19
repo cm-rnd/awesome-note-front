@@ -18,10 +18,6 @@ const router = createBrowserRouter([
 
     children: [
       {
-        path: "",
-        element: <Home />,
-      },
-      {
         path: "/page/:teamId",
         element: <RefTeamNotesPage />,
       },
