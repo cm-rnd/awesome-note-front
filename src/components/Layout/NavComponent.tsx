@@ -25,13 +25,13 @@ import {
   Items,
   Nav,
 } from "../StyleComponent/NavStyle";
+import { handleClickLogout } from "../Login/LogOut";
 
 interface FolderNameForm {
   name: "string";
 }
 function NavComponent({ data }: { data: Data }) {
   const { register, handleSubmit } = useForm<FolderNameForm>();
-
   const { mutate } = useMutation(postFiles);
 
   const handleButtonClick = () => {
@@ -40,16 +40,6 @@ function NavComponent({ data }: { data: Data }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const navigate = useNavigate();
-  const handleClickLogout = () => {
-    axios
-      .post(`http://localhost:8080/api/v1/logout`, null, {
-        withCredentials: true,
-      })
-      .then((data) => {
-        window.alert(`로그아웃`);
-        navigate(`/login`);
-      });
-  };
 
   const createFolder = async (folderName: FolderNameForm) => {
     axios
