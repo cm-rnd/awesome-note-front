@@ -1,7 +1,10 @@
 import { teamData } from "@/atoms/atoms";
+import { FolderNameForm } from "@/interfaces/CommonInterface";
 import axios, { Axios, AxiosResponse } from "axios";
 import { useMutation } from "react-query";
+import { useNavigate } from "react-router";
 import { useRecoilState } from "recoil";
+const navigate = useNavigate();
 
 export async function axiosTeams() {
   return await axios
@@ -211,3 +214,34 @@ export async function postMoveNote(noteId: number, folderId: number) {
       alert("업로드 오류");
     });
 }
+
+export const createFolder = async (folderName: FolderNameForm) => {
+  axios
+    .post(
+      "http://localhost:8080/api/v1/folders",
+      {
+        name: folderName.name,
+      },
+
+      {
+        headers: { ContentType: "application/json" },
+        withCredentials: true,
+      },
+    )
+    .then((res) => {
+      window.alert(`업로드완료`);
+      navigate("/page/allnotes");
+    })
+    .catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    });
+};

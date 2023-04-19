@@ -1,5 +1,5 @@
-import { axiosTeams, postFiles } from "@/apis/Api";
-import { Data } from "@/interfaces/CommonInterface";
+import { axiosTeams, createFolder, postFiles } from "@/apis/Api";
+import { Data, FolderNameForm } from "@/interfaces/CommonInterface";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import {
   faCloudUpload,
@@ -27,50 +27,14 @@ import {
 } from "../StyleComponent/NavStyle";
 import { handleClickLogout } from "../Login/LogOut";
 
-interface FolderNameForm {
-  name: "string";
-}
 function NavComponent({ data }: { data: Data }) {
   const { register, handleSubmit } = useForm<FolderNameForm>();
   const { mutate } = useMutation(postFiles);
-
   const handleButtonClick = () => {
     fileInputRef.current?.click();
   };
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const navigate = useNavigate();
-
-  const createFolder = async (folderName: FolderNameForm) => {
-    axios
-      .post(
-        "http://localhost:8080/api/v1/folders",
-        {
-          name: folderName.name,
-        },
-
-        {
-          headers: { ContentType: "application/json" },
-          withCredentials: true,
-        },
-      )
-      .then((res) => {
-        window.alert(`업로드완료`);
-        navigate("/page/allnotes");
-      })
-      .catch(function (error) {
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          console.log(error.request);
-        } else {
-          console.log("Error", error.message);
-        }
-        console.log(error.config);
-      });
-  };
+  const [userInfo] = useRecoilState(userInfoState);
 
   return (
     <Nav>

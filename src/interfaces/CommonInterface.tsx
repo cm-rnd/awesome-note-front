@@ -50,3 +50,7 @@ export interface IUserInfo {
   nickname: string;
   role: string;
 }
+
+export interface FolderNameForm {
+  name: "string";
+}
