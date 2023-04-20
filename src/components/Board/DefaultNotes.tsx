@@ -6,14 +6,10 @@ import { requestNoteData, requestNoteFolderData } from "@/apis/Api";
 import { useEffect } from "react";
 import { NotesPage } from "@/interfaces/CommonInterface";
 
-export function DefaultNotes(page: number, setPage: (num: number) => void) {
+export function DefaultNotes(page: number) {
   const [notes, setNotes] = useRecoilState(noteState);
   const size = 40;
-  const {
-    data: noteData,
-    isFetched,
-    refetch,
-  } = useQuery<NotesPage>(
+  const { data: noteData, isFetched } = useQuery<NotesPage>(
     [`noteInfo`, page, size],
     () => requestNoteData(page, size),
     {
@@ -26,10 +22,6 @@ export function DefaultNotes(page: number, setPage: (num: number) => void) {
       return;
     }
 
-    const boardTitle = Object.keys(notes);
-    const boardIndex = Object.keys(notes).map((title, index) => {
-      return index;
-    });
     const boardName = Object.keys(notes);
     const numElement = noteData?.numberOfElements ?? 0;
 
@@ -56,14 +48,4 @@ export function DefaultNotes(page: number, setPage: (num: number) => void) {
       }
     }
   }, [isFetched, page]);
-  /* useEffect(() => {
-    if (notes) {
-      setPagination(
-        Object.keys(notes).map((n: any) => {
-          return { page: 1 };
-        }),
-      );
-    }
-  }, [isFetched]);
-*/
 }

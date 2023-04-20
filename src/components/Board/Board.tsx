@@ -91,12 +91,9 @@ const Area = styled.div<IAreaProps>`
 `;
 
 function Board({ notes, boardId, title }: IboardProps) {
-  const setNote = useSetRecoilState(noteState);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isEnd, setIsEnd] = useState(false);
-  const onValid = () => {
-    const newNote = {};
-  };
+
   const onScroll = (event: React.UIEvent<HTMLUListElement>) => {
     if (event.currentTarget.scrollTop > 0) {
       setIsScrolled(true);

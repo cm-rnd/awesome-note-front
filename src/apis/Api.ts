@@ -1,9 +1,8 @@
-import { teamData } from "@/atoms/atoms";
 import { FolderNameForm } from "@/interfaces/CommonInterface";
-import axios, { Axios, AxiosResponse } from "axios";
-import { useMutation } from "react-query";
+import axios from "axios";
+
 import { useNavigate } from "react-router";
-import { useRecoilState } from "recoil";
+
 const navigate = useNavigate();
 
 export async function axiosTeams() {

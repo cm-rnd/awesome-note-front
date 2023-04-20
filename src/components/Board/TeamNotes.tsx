@@ -1,16 +1,12 @@
 import { requestNoteFolderData } from "@/apis/Api";
 
-import { noteState, pageState } from "@/atoms/atoms";
+import { noteState } from "@/atoms/atoms";
 import { NotesPage } from "@/interfaces/CommonInterface";
 import { useEffect } from "react";
 import { useQuery } from "react-query";
 import { useRecoilState, useResetRecoilState } from "recoil";
 
-export function TeamNotes(
-  folderPage: number,
-  setFolderPage: (num: number) => void,
-  folderId: number,
-) {
+export function TeamNotes(folderPage: number, folderId: number) {
   const [notes, setNotes] = useRecoilState(noteState);
 
   const size = 40;
@@ -22,10 +18,6 @@ export function TeamNotes(
 
   useEffect(() => {
     if (isFetched) {
-      const boardIndex = Object.keys(notes).map((title, index) => {
-        return index;
-      });
-
       const boardName = Object.keys(notes);
       const numElement = teamNoteData?.numberOfElements ?? 0;
 

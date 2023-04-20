@@ -36,7 +36,10 @@ export function CommentsPage() {
   }
 
   const { register, handleSubmit } = useForm<CommentForm>();
-
+  const { data: commentData } = useQuery<IComment[]>(
+    [`noteInfo`, noteIdNumber, id, loginId, nickname, role],
+    () => getComments(+noteIdNumber, id, loginId, nickname, role),
+  );
   const commentPost = async (props: CommentForm) => {
     const { comment, noteId } = props;
     return await axios
@@ -66,11 +69,6 @@ export function CommentsPage() {
         console.log(error.config);
       });
   };
-
-  const { data: commentData } = useQuery<IComment[]>(
-    [`noteInfo`, noteIdNumber, id, loginId, nickname, role],
-    () => getComments(+noteIdNumber, id, loginId, nickname, role),
-  );
 
   return (
     <CommentsContainer>

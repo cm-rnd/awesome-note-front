@@ -3,12 +3,7 @@ import { HomeNoteContainer } from "@/components/StyleComponent/NoteStyle";
 import { useRecoilState } from "recoil";
 
 import styled from "styled-components";
-import {
-  DragDropContext,
-  Draggable,
-  DropResult,
-  Droppable,
-} from "react-beautiful-dnd";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { folderIdState, noteIdState, noteState } from "@/atoms/atoms";
 import Board from "../Board/Board";
 
@@ -22,7 +17,7 @@ import { TeamNotes } from "../Board/TeamNotes";
 import { DefaultNotes } from "../Board/DefaultNotes";
 import { useOutletContext } from "react-router";
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
   width: 100vw;
   margin: 0 auto;
@@ -55,9 +50,9 @@ export function BottomNote() {
     });
   }, [data.data.folderInfoList]);
 
-  DefaultNotes(page[0], (num: number) => handlePageChange(0, num));
+  DefaultNotes(page[0]);
   for (let i = 1; i < Object.keys(data.data.folderInfoList).length + 1; i++) {
-    TeamNotes(page[i], (num: number) => handlePageChange(i, num), i);
+    TeamNotes(page[i], i);
   }
 
   const onDragEnd = (info: DropResult) => {

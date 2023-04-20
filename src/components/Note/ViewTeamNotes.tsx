@@ -13,7 +13,6 @@ import { Typography } from "@mui/material";
 import Paging from "../Layout/Paging";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 
 export function ViewTeamNotes() {
   const { teamId } = useParams();
