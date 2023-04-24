@@ -80,3 +80,8 @@ export interface ApiForm {
   loginId: string;
   password: string;
 }
+
+export interface ICommentForm {
+  comment: string;
+  noteId: string;
+}

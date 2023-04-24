@@ -6,12 +6,12 @@ import { useRecoilState } from "recoil";
 import { userInfoState } from "@/atoms/atoms";
 import { useQuery } from "react-query";
 import { useParams } from "react-router";
-import { getComments } from "@/apis/Api";
+import { commentPost, getComments } from "@/apis/Api";
 
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
-import { IComment } from "@/interfaces/CommonInterface";
+import { IComment, ICommentForm } from "@/interfaces/CommonInterface";
 import {
   CommentButton,
   CommentForm,
@@ -29,45 +29,11 @@ export function CommentsPage() {
   const nickname = userInfo.nickname;
   const role = userInfo.role;
 
-  interface CommentForm {
-    comment: string;
-    noteId: string;
-  }
-
-  const { register, handleSubmit } = useForm<CommentForm>();
+  const { register, handleSubmit } = useForm<ICommentForm>();
   const { data: commentData } = useQuery<IComment[]>(
     [`noteInfo`, noteIdNumber, id, loginId, nickname, role],
     () => getComments(+noteIdNumber, id, loginId, nickname, role),
   );
-  const commentPost = async (props: CommentForm) => {
-    const { comment, noteId } = props;
-    return await axios
-      .post(
-        `http://localhost:8080/api/v1/notes/${noteId}/comments`,
-        {
-          content: comment,
-        },
-        {
-          headers: { ContentType: "application/json" },
-          withCredentials: true,
-        },
-      )
-      .then((res) => {
-        window.alert(`업로드완료`);
-      })
-      .catch(function (error) {
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          console.log(error.request);
-        } else {
-          console.log("Error", error.message);
-        }
-        console.log(error.config);
-      });
-  };
 
   return (
     <CommentsContainer>
