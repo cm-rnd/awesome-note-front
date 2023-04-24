@@ -1,6 +1,6 @@
 import { requestNoteFolderData } from "@/apis/Api";
 import { NotesPage } from "@/interfaces/CommonInterface";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
 
 import {
@@ -28,12 +28,6 @@ export function ViewTeamNotes() {
     ["noteFolderInfo", folderId, page, size],
     () => requestNoteFolderData(+folderId, page, size),
   );
-
-  const [teamNotes, setTeamNotes] = useState<NotesPage>();
-
-  useEffect(() => {
-    setTeamNotes(teamNotesData);
-  }, [page]);
 
   const number = teamNotesData?.totalElements ?? 0;
   return (

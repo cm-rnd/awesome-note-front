@@ -17,11 +17,7 @@ export function TextPage() {
   const { noteId } = useParams();
   const size = 40;
   const page = 1;
-  const {
-    data: noteData,
-    isFetched,
-    refetch,
-  } = useQuery<NotesPage>(
+  const { data: noteData } = useQuery<NotesPage>(
     [`noteInfo`, page, size],
     () => requestNoteData(page, size),
     {
@@ -32,9 +28,7 @@ export function TextPage() {
 
   const noteInfo = noteData?.content[+contentIndex];
 
-  const [notese, setNotes] = useRecoilState(allNoteInfoState);
-
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
   const noteTitle = noteInfo?.noteId ?? 0;
   return (
     <TextContainer>

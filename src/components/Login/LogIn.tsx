@@ -12,12 +12,8 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { userInfoState } from "@/atoms/atoms";
-
-interface LoginFormData {
-  loginId: string;
-  password: string;
-  extraError?: string;
-}
+import { LoginFormData } from "@/interfaces/CommonInterface";
+import { LoginPost } from "@/apis/Api";
 
 interface SessionData {
   loginId: string;
@@ -33,31 +29,6 @@ export function LogIn() {
     formState: { errors },
     setError,
   } = useForm<LoginFormData>();
-  const navigate = useNavigate();
-
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const LoginPost = (data: LoginFormData) => {
-    axios
-      .post("http://localhost:8080/api/v1/login", data, {
-        withCredentials: true,
-      })
-      .then(
-        (res) => {
-          setUserInfo(res.data.data);
-
-          navigate(`/`);
-        },
-        // document.location.href = "/";
-      )
-      .catch((error) => {
-        window.alert("로그인 실패");
-        console.log(error);
-        location.reload();
-      });
-
-    setError("extraError", { message: "서버 닫힘" });
-  };
-  console.log(errors);
 
   return (
     <Layout>

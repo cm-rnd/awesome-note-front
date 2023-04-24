@@ -2,7 +2,7 @@ import { noteState } from "@/atoms/atoms";
 import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
 
-import { requestNoteData, requestNoteFolderData } from "@/apis/Api";
+import { requestNoteData } from "@/apis/Api";
 import { useEffect } from "react";
 import { NotesPage } from "@/interfaces/CommonInterface";
 

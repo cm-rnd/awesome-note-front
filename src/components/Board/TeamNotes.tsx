@@ -4,16 +4,16 @@ import { noteState } from "@/atoms/atoms";
 import { NotesPage } from "@/interfaces/CommonInterface";
 import { useEffect } from "react";
 import { useQuery } from "react-query";
-import { useRecoilState, useResetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
+
+const SIZE = 40;
 
 export function TeamNotes(folderPage: number, folderId: number) {
   const [notes, setNotes] = useRecoilState(noteState);
 
-  const size = 40;
-
   const { data: teamNoteData, isFetched } = useQuery<NotesPage>(
-    ["noteFolderInfo", folderId, folderPage, size],
-    () => requestNoteFolderData(folderId, folderPage, size),
+    ["noteFolderInfo", folderId, folderPage, SIZE],
+    () => requestNoteFolderData(folderId, folderPage, SIZE),
   );
 
   useEffect(() => {

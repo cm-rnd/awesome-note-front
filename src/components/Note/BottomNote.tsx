@@ -38,7 +38,7 @@ export function BottomNote() {
   const [notes, setNotes] = useRecoilState(noteState);
   const [noteId, setNoteId] = useRecoilState(noteIdState);
   const [folderId, setFolderId] = useRecoilState(folderIdState);
-  const { page, handlePageChange } = usePagination(Object.keys(notes).length);
+  const { page } = usePagination(Object.keys(notes).length);
 
   const moveNote = useMutation(() => postMoveNote(noteId, folderId));
   const data = useOutletContext<Data>();
@@ -51,6 +51,7 @@ export function BottomNote() {
   }, [data.data.folderInfoList]);
 
   DefaultNotes(page[0]);
+
   for (let i = 1; i < Object.keys(data.data.folderInfoList).length + 1; i++) {
     TeamNotes(page[i], i);
   }

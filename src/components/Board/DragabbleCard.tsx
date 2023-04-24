@@ -4,6 +4,12 @@ import { Draggable } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 
+interface IDragabbleCardProps {
+  noteId: number;
+  writerId?: number;
+  context: string;
+  index: number;
+}
 const Card = styled.div<{ isDragging: boolean; isMine: boolean }>`
   border-radius: 5px;
   margin-bottom: 5px;
@@ -18,13 +24,6 @@ const Card = styled.div<{ isDragging: boolean; isMine: boolean }>`
   box-shadow: ${(props) =>
     props.isDragging ? "0px 2px 5px rgba(0, 0, 0, 0.05)" : "none"};
 `;
-
-interface IDragabbleCardProps {
-  noteId: number;
-  writerId?: number;
-  context: string;
-  index: number;
-}
 
 function DragabbleCard({
   noteId,

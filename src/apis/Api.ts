@@ -1,9 +1,9 @@
-import { FolderNameForm } from "@/interfaces/CommonInterface";
+import { userInfoState } from "@/atoms/atoms";
+import { FolderNameForm, LoginFormData } from "@/interfaces/CommonInterface";
 import axios from "axios";
 
 import { useNavigate } from "react-router";
-
-const navigate = useNavigate();
+import { useRecoilState } from "recoil";
 
 export async function axiosTeams() {
   return await axios
@@ -215,6 +215,8 @@ export async function postMoveNote(noteId: number, folderId: number) {
 }
 
 export const createFolder = async (folderName: FolderNameForm) => {
+  const navigate = useNavigate();
+
   axios
     .post(
       "http://localhost:8080/api/v1/folders",
@@ -242,5 +244,25 @@ export const createFolder = async (folderName: FolderNameForm) => {
         console.log("Error", error.message);
       }
       console.log(error.config);
+    });
+};
+
+export const LoginPost = (data: LoginFormData) => {
+  const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+
+  axios
+    .post("http://localhost:8080/api/v1/login", data, {
+      withCredentials: true,
+    })
+    .then((res) => {
+      setUserInfo(res.data.data);
+
+      navigate(`/`);
+    })
+    .catch((error) => {
+      window.alert("로그인 실패");
+      console.log(error);
+      location.reload();
     });
 };

@@ -1,10 +1,9 @@
-import { useParams } from "react-router-dom";
 import { BottomNoteContainer } from "../StyleComponent/NoteStyle";
 
 import { useQuery } from "react-query";
 import { NotesPage } from "@/interfaces/CommonInterface";
 import { requestNoteData } from "@/apis/Api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Link } from "react-router-dom";
 import PageContainer from "../Layout/PageContainer";
@@ -28,7 +27,6 @@ export function ViewAllNotes() {
     setPage(page);
   };
 
-  const number = noteData?.totalElements ?? 0;
   return (
     <BottomNoteContainer>
       <PageContainer title="All Notes" description="This is Allnote Page">
@@ -43,7 +41,7 @@ export function ViewAllNotes() {
         })}
         <Paging
           page={page}
-          totalElement={+number}
+          totalElement={+(noteData?.totalElements ?? 0)}
           handlePageChange={handlePageChange}
         />
       </PageContainer>

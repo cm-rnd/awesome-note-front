@@ -2,7 +2,6 @@ import { Typography } from "@mui/material";
 import PageContainer from "../Layout/PageContainer";
 import { CommentsContainer } from "../StyleComponent/NoteStyle";
 import TextDashboardCard from "../Board/TextDashBoard";
-import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { userInfoState } from "@/atoms/atoms";
 import { useQuery } from "react-query";

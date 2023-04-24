@@ -54,3 +54,9 @@ export interface IUserInfo {
 export interface FolderNameForm {
   name: "string";
 }
+
+export interface LoginFormData {
+  loginId: string;
+  password: string;
+  extraError?: string;
+}

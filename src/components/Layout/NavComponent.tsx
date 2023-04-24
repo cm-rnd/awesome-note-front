@@ -1,4 +1,4 @@
-import { axiosTeams, createFolder, postFiles } from "@/apis/Api";
+import { createFolder, postFiles } from "@/apis/Api";
 import { Data, FolderNameForm } from "@/interfaces/CommonInterface";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -7,10 +7,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef } from "react";
-import { useMutation, useQuery } from "react-query";
-import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
+import { Link } from "react-router-dom";
 
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import { userInfoState } from "@/atoms/atoms";
