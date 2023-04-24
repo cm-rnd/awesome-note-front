@@ -11,13 +11,13 @@ import DashboardCard from "../Board/DashBoardCard";
 import { Typography } from "@mui/material";
 
 import Paging from "../Layout/Paging";
-
+const SIZE = 5;
 export function ViewAllNotes() {
   const [page, setPage] = useState(1);
-  const size = 5;
+
   const { data: noteData } = useQuery<NotesPage>(
     [`noteInfo`, page],
-    () => requestNoteData(page, size),
+    () => requestNoteData(page, SIZE),
     {
       refetchOnMount: true,
     },

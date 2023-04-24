@@ -6,14 +6,10 @@ import { useParams } from "react-router";
 import { useQuery } from "react-query";
 import { NotesPage } from "@/interfaces/CommonInterface";
 import { requestNoteData } from "@/apis/Api";
-import { useEffect } from "react";
-import { allNoteInfoState, userInfoState } from "@/atoms/atoms";
-import { useRecoilState } from "recoil";
+
 import TextDashboardCard from "../Board/TextDashBoard";
 
 export function TextPage() {
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-
   const { noteId } = useParams();
   const size = 40;
   const page = 1;

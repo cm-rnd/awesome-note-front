@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import NavComponent from "./components/Layout/NavComponent";
@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 import { Data, IUserInfo } from "./interfaces/CommonInterface";
 import { axiosTeams, axiosUser } from "./apis/Api";
 import { useRecoilState } from "recoil";
-import { teamData, userInfoState } from "./atoms/atoms";
+import { userInfoState } from "./atoms/atoms";
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap');

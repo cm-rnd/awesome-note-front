@@ -6,14 +6,15 @@ import { requestNoteData } from "@/apis/Api";
 import { useEffect } from "react";
 import { Data, NotesPage } from "@/interfaces/CommonInterface";
 import { useOutletContext } from "react-router";
+const SIZE = 40;
 
 export function DefaultNotes(page: number) {
   const [notes, setNotes] = useRecoilState(noteState);
-  const size = 40;
+
   const data = useOutletContext<Data>();
   const { data: noteData, isFetched } = useQuery<NotesPage>(
-    [`noteInfo`, page, size],
-    () => requestNoteData(page, size),
+    [`noteInfo`, page, SIZE],
+    () => requestNoteData(page, SIZE),
     {
       refetchOnMount: true,
     },

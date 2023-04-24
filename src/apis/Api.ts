@@ -1,4 +1,3 @@
-import { userInfoState } from "@/atoms/atoms";
 import {
   ApiForm,
   FolderNameForm,
@@ -7,9 +6,6 @@ import {
   LoginFormData,
 } from "@/interfaces/CommonInterface";
 import axios from "axios";
-
-import { useNavigate } from "react-router";
-import { useRecoilState } from "recoil";
 
 export async function axiosTeams() {
   return await axios
@@ -27,7 +23,6 @@ export async function axiosUser() {
       withCredentials: true,
     })
     .then((res) => {
-      console.log(res);
       return res.data;
     });
 }
@@ -46,15 +41,6 @@ export async function requestNoteData(page: number, size: number) {
       return data;
     })
     .catch(function (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
-      }
       console.log(error.config);
     });
 }
@@ -78,15 +64,6 @@ export async function requestNoteFolderData(
       return data;
     })
     .catch(function (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
-      }
       console.log(error.config);
     });
 }
@@ -112,15 +89,6 @@ export async function noteDetailData(
       return data;
     })
     .catch(function (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
-      }
       console.log(error.config);
     });
 }
@@ -146,15 +114,6 @@ export async function getComments(
       return data;
     })
     .catch(function (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
-      }
       console.log(error.config);
     });
 }
@@ -174,15 +133,6 @@ export const postFiles = async (e: any) => {
       window.location.reload();
     })
     .catch(function (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
-      }
       console.log(error.config);
       alert("업로드 오류");
     });
@@ -199,15 +149,6 @@ export async function postMoveNote(noteId: number, folderId: number) {
       alert("업로드 완료");
     })
     .catch(function (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
-      }
       console.log(error.config);
       alert("업로드 오류");
     });
@@ -230,15 +171,6 @@ export const createFolder = async (folderName: FolderNameForm) => {
       window.alert(`업로드완료`);
     })
     .catch(function (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
-      }
       console.log(error.config);
     });
 };
@@ -271,15 +203,6 @@ export const commentPost = async (props: ICommentForm) => {
       window.alert(`업로드완료`);
     })
     .catch(function (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
-      }
       console.log(error.config);
     });
 };

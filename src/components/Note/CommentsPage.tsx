@@ -8,7 +8,6 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router";
 import { commentPost, getComments } from "@/apis/Api";
 
-import axios from "axios";
 import { useForm } from "react-hook-form";
 
 import { IComment, ICommentForm } from "@/interfaces/CommonInterface";

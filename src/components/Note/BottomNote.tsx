@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { HomeNoteContainer } from "@/components/StyleComponent/NoteStyle";
 import { useRecoilState } from "recoil";
 
@@ -12,7 +12,6 @@ import { useMutation } from "react-query";
 
 import { Data } from "@/interfaces/CommonInterface";
 import usePagination from "../hook/usePagination";
-import { TeamNotes } from "../Board/TeamNotes";
 
 import { DefaultNotes } from "../Board/DefaultNotes";
 import { useOutletContext } from "react-router";
