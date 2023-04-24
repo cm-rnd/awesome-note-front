@@ -1,4 +1,3 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
 import "./Paging.css";
 import Pagination from "react-js-pagination";
 

@@ -2,20 +2,19 @@ import { noteState } from "@/atoms/atoms";
 import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
 
-import { requestNoteData, requestNoteFolderData } from "@/apis/Api";
+import { requestNoteData } from "@/apis/Api";
 import { useEffect } from "react";
-import { NotesPage } from "@/interfaces/CommonInterface";
+import { Data, NotesPage } from "@/interfaces/CommonInterface";
+import { useOutletContext } from "react-router";
+const SIZE = 40;
 
-export function DefaultNotes(page: number, setPage: (num: number) => void) {
+export function DefaultNotes(page: number) {
   const [notes, setNotes] = useRecoilState(noteState);
-  const size = 40;
-  const {
-    data: noteData,
-    isFetched,
-    refetch,
-  } = useQuery<NotesPage>(
-    [`noteInfo`, page, size],
-    () => requestNoteData(page, size),
+
+  const data = useOutletContext<Data>();
+  const { data: noteData, isFetched } = useQuery<NotesPage>(
+    [`noteInfo`, page, SIZE],
+    () => requestNoteData(page, SIZE),
     {
       refetchOnMount: true,
     },
@@ -25,10 +24,7 @@ export function DefaultNotes(page: number, setPage: (num: number) => void) {
     if (!noteData) {
       return;
     }
-    const boardTitle = Object.keys(notes);
-    const boardIndex = Object.keys(notes).map((title, index) => {
-      return index;
-    });
+
     const boardName = Object.keys(notes);
     const numElement = noteData?.numberOfElements ?? 0;
 
@@ -53,16 +49,31 @@ export function DefaultNotes(page: number, setPage: (num: number) => void) {
           return notes;
         });
       }
+
+      for (
+        let j = 1;
+        j < +Object.keys(data.data.folderInfoList).length + 1;
+        j++
+      ) {
+        if (
+          noteData.content[i].folderName ===
+          data.data.folderInfoList[j - 1].folderName
+        ) {
+          console.log(data, "폴더인포리스트");
+          setNotes((allBoards) => {
+            let notes = { ...allBoards };
+            const allnote = [...allBoards[boardName[j]]];
+            const noteObj = noteData?.content[i];
+
+            if (noteObj) {
+              allnote.splice(allnote.length, 0, noteObj);
+              notes[boardName[j]] = allnote;
+            }
+
+            return notes;
+          });
+        }
+      }
     }
   }, [isFetched, page]);
-  /* useEffect(() => {
-    if (notes) {
-      setPagination(
-        Object.keys(notes).map((n: any) => {
-          return { page: 1 };
-        }),
-      );
-    }
-  }, [isFetched]);
-*/
 }

@@ -8,63 +8,41 @@ import {
   Title,
   WhiteBox,
 } from "../StyleComponent/SignStyle";
+
+import { LoginFormData } from "@/interfaces/CommonInterface";
+import { LoginPost } from "@/apis/Api";
 import { useNavigate } from "react-router";
-import axios from "axios";
-import { useRecoilState } from "recoil";
 import { userInfoState } from "@/atoms/atoms";
-
-interface LoginFormData {
-  loginId: string;
-  password: string;
-  extraError?: string;
-}
-
-interface SessionData {
-  loginId: string;
-  nickname: string;
-  role: string;
-  token: string;
-}
+import { useRecoilState } from "recoil";
 
 export function LogIn() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
   } = useForm<LoginFormData>();
   const navigate = useNavigate();
-
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const LoginPost = (data: LoginFormData) => {
-    axios
-      .post("http://localhost:8080/api/v1/login", data, {
-        withCredentials: true,
-      })
-      .then(
-        (res) => {
-          setUserInfo(res.data.data);
 
-          navigate(`/`);
-        },
-        // document.location.href = "/";
-      )
+  const handlePost = (data: LoginFormData) => {
+    LoginPost(data)
+      .then((res) => {
+        setUserInfo(res.data.data);
+        navigate(`/`);
+      })
       .catch((error) => {
         window.alert("로그인 실패");
         console.log(error);
         location.reload();
       });
-
-    setError("extraError", { message: "서버 닫힘" });
   };
-  console.log(errors);
 
   return (
     <Layout>
       <WhiteBox>
         <Title>AwesomeNote</Title>
         <h3>로그인</h3>
-        <SignForm onSubmit={handleSubmit(LoginPost)}>
+        <SignForm onSubmit={handleSubmit(handlePost)}>
           <SignInput
             {...register("loginId", { required: true, minLength: 1 })}
             placeholder="Login ID"

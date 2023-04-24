@@ -1,12 +1,8 @@
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import DraggableCard from "./DragabbleCard";
-import { noteState } from "@/atoms/atoms";
-import Note from "@/pages/Home/Switch/Note";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import Paging from "../Layout/Paging";
+
 import { INote } from "@/interfaces/CommonInterface";
-import { Dispatch, SetStateAction, useState } from "react";
 
 interface IboardProps {
   notes: INote[];
@@ -91,29 +87,6 @@ const Area = styled.div<IAreaProps>`
 `;
 
 function Board({ notes, boardId, title }: IboardProps) {
-  const setNote = useSetRecoilState(noteState);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isEnd, setIsEnd] = useState(false);
-  const onValid = () => {
-    const newNote = {};
-  };
-  const onScroll = (event: React.UIEvent<HTMLUListElement>) => {
-    if (event.currentTarget.scrollTop > 0) {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(false);
-    }
-
-    if (
-      event.currentTarget.scrollHeight - event.currentTarget.scrollTop ===
-      event.currentTarget.clientHeight
-    ) {
-      setIsEnd(true);
-    } else {
-      setIsEnd(false);
-    }
-  };
-
   return (
     <Wrapper>
       <Title>{title}</Title>
@@ -125,17 +98,14 @@ function Board({ notes, boardId, title }: IboardProps) {
             ref={magic.innerRef}
             {...magic.droppableProps}
           >
-            <Notes
-              ref={magic.innerRef}
-              {...magic.droppableProps}
-              onScroll={onScroll}
-            >
+            <Notes ref={magic.innerRef} {...magic.droppableProps}>
               {notes.map((note, index) => (
                 <DraggableCard
+                  writerId={note.writerId}
                   key={note.noteId}
                   index={index}
                   noteId={note.noteId}
-                  context={`제목: ${note.noteId} 작성자: ${note.writerNickname} 팀: ${note.folderName}`}
+                  context={`제목: ${note.noteId} 작성자: ${note.writerNickname}`}
                 />
               ))}
 

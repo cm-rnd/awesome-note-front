@@ -1,35 +1,22 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import {
-  BottomNoteContainer,
-  HomeNoteContainer,
-} from "@/components/StyleComponent/NoteStyle";
+import { useEffect } from "react";
+import { HomeNoteContainer } from "@/components/StyleComponent/NoteStyle";
 import { useRecoilState } from "recoil";
 
 import styled from "styled-components";
-import {
-  DragDropContext,
-  Draggable,
-  DropResult,
-  Droppable,
-} from "react-beautiful-dnd";
-import {
-  folderIdState,
-  noteIdState,
-  noteState,
-  notesInfoState,
-} from "@/atoms/atoms";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { folderIdState, noteIdState, noteState } from "@/atoms/atoms";
 import Board from "../Board/Board";
 
-import { axiosTeams, postMoveNote } from "@/apis/Api";
-import { useMutation, useQuery } from "react-query";
+import { postMoveNote } from "@/apis/Api";
+import { useMutation } from "react-query";
 
-import { Data, NotesPage } from "@/interfaces/CommonInterface";
+import { Data } from "@/interfaces/CommonInterface";
 import usePagination from "../hook/usePagination";
-import { TeamNotes } from "../Board/TeamNotes";
-import useDataSet from "../hook/useDataSet";
-import { DefaultNotes } from "../Board/DefaultNotes";
 
-export const Wrapper = styled.div`
+import { DefaultNotes } from "../Board/DefaultNotes";
+import { useOutletContext } from "react-router";
+
+const Wrapper = styled.div`
   display: flex;
   width: 100vw;
   margin: 0 auto;
@@ -50,29 +37,21 @@ export function BottomNote() {
   const [notes, setNotes] = useRecoilState(noteState);
   const [noteId, setNoteId] = useRecoilState(noteIdState);
   const [folderId, setFolderId] = useRecoilState(folderIdState);
-
-  const { page, handlePageChange } = usePagination(Object.keys(notes).length);
+  const { page } = usePagination(Object.keys(notes).length);
 
   const moveNote = useMutation(() => postMoveNote(noteId, folderId));
-
-  const { data, isFetched } = useQuery<Data>(["teamInfo"], axiosTeams);
+  const data = useOutletContext<Data>();
   useEffect(() => {
     data?.data.folderInfoList.map((team) => {
       setNotes((allBoards) => {
         return { ...allBoards, [team.folderName]: [] };
       });
     });
-  }, [isFetched]);
+  }, [data.data.folderInfoList]);
 
-  DefaultNotes(page[0], (num: number) => handlePageChange(0, num));
-  for (let i = 1; i < 5; i++) {
-    TeamNotes(page[i], (num: number) => handlePageChange(i, num), i);
-  }
-
-  console.log(notes);
+  DefaultNotes(page[0]);
 
   const onDragEnd = (info: DropResult) => {
-    console.log(info);
     const { destination, draggableId, source } = info;
     const boardName = Object.keys(notes);
     if (!destination) return;

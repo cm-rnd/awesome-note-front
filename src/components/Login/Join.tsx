@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
@@ -10,26 +9,8 @@ import {
   Title,
   WhiteBox,
 } from "../StyleComponent/SignStyle";
-
-interface Form {
-  errors: {
-    email: {
-      message: string;
-    };
-  };
-  nickname: string;
-  loginId: string;
-  password: string;
-  passwordCheck: string;
-  extraError?: string;
-  email: string;
-}
-
-interface ApiForm {
-  nickname: string;
-  loginId: string;
-  password: string;
-}
+import { Form } from "@/interfaces/CommonInterface";
+import { onPost } from "@/apis/Api";
 
 export function Join() {
   const {
@@ -37,16 +18,11 @@ export function Join() {
     handleSubmit,
     getValues,
     formState: { errors },
-    setError,
   } = useForm<Form>();
-
   const navigate = useNavigate();
-  const onPost = (data: Form) => {
-    console.log(data);
-    axios
-      .post<ApiForm>("http://localhost:8080/api/v1/signup", data, {
-        headers: { ContentType: "application/json" },
-      })
+
+  const handlePost = (data: Form) => {
+    onPost(data)
       .then((res) => {
         console.log(res);
         window.alert(`회원가입 완료`);
@@ -56,17 +32,14 @@ export function Join() {
         window.alert(`회원가입 실패`);
         console.log(error);
       });
-
-    setError("extraError", { message: "서버 닫힘" });
   };
-  console.log(errors);
 
   return (
     <Layout>
       <WhiteBox>
         <Title>AwesomeNote</Title>
         <h3>회원가입</h3>
-        <SignForm onSubmit={handleSubmit(onPost)}>
+        <SignForm onSubmit={handleSubmit(handlePost)}>
           <SignInput
             {...register("nickname", {
               required: "name is requred",
