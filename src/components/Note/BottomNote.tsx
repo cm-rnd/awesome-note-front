@@ -52,10 +52,6 @@ export function BottomNote() {
 
   DefaultNotes(page[0]);
 
-  for (let i = 1; i < Object.keys(data.data.folderInfoList).length + 1; i++) {
-    TeamNotes(page[i], i);
-  }
-
   const onDragEnd = (info: DropResult) => {
     const { destination, draggableId, source } = info;
     const boardName = Object.keys(notes);
