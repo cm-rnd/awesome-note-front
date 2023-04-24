@@ -164,13 +164,6 @@ const config = {
   withCredentials: true,
 };
 
-interface FormData {
-  record: File;
-}
-interface ResponseData {
-  record: File;
-}
-
 export const postFiles = async (e: any) => {
   // console.log(e.target.files[0]);
   const formdata = e.target.files[0];
@@ -221,8 +214,6 @@ export async function postMoveNote(noteId: number, folderId: number) {
 }
 
 export const createFolder = async (folderName: FolderNameForm) => {
-  const navigate = useNavigate();
-
   axios
     .post(
       "http://localhost:8080/api/v1/folders",
@@ -237,7 +228,6 @@ export const createFolder = async (folderName: FolderNameForm) => {
     )
     .then((res) => {
       window.alert(`업로드완료`);
-      navigate("/page/allnotes");
     })
     .catch(function (error) {
       if (error.response) {
@@ -253,41 +243,16 @@ export const createFolder = async (folderName: FolderNameForm) => {
     });
 };
 
-export const LoginPost = (data: LoginFormData) => {
-  const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+export const LoginPost = (data: LoginFormData) =>
+  axios.post("http://localhost:8080/api/v1/login", data, {
+    withCredentials: true,
+  });
 
-  axios
-    .post("http://localhost:8080/api/v1/login", data, {
-      withCredentials: true,
-    })
-    .then((res) => {
-      setUserInfo(res.data.data);
-
-      navigate(`/`);
-    })
-    .catch((error) => {
-      window.alert("로그인 실패");
-      console.log(error);
-      location.reload();
-    });
-};
-
-export const onPost = (data: Form) => {
-  const navigate = useNavigate();
-  axios
-    .post<ApiForm>("http://localhost:8080/api/v1/signup", data, {
-      headers: { ContentType: "application/json" },
-    })
-    .then((res) => {
-      window.alert(`회원가입 완료`);
-      navigate(`/login`);
-    })
-    .catch((error) => {
-      window.alert(`회원가입 실패`);
-      console.log(error);
-    });
-};
+export const onPost = (data: Form) =>
+  axios.post<ApiForm>("http://localhost:8080/api/v1/signup", data, {
+    headers: { ContentType: "application/json" },
+    withCredentials: true,
+  });
 
 export const commentPost = async (props: ICommentForm) => {
   const { comment, noteId } = props;

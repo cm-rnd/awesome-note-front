@@ -11,6 +11,9 @@ import {
 
 import { LoginFormData } from "@/interfaces/CommonInterface";
 import { LoginPost } from "@/apis/Api";
+import { useNavigate } from "react-router";
+import { userInfoState } from "@/atoms/atoms";
+import { useRecoilState } from "recoil";
 
 export function LogIn() {
   const {
@@ -18,13 +21,28 @@ export function LogIn() {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>();
+  const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+
+  const handlePost = (data: LoginFormData) => {
+    LoginPost(data)
+      .then((res) => {
+        setUserInfo(res.data.data);
+        navigate(`/`);
+      })
+      .catch((error) => {
+        window.alert("로그인 실패");
+        console.log(error);
+        location.reload();
+      });
+  };
 
   return (
     <Layout>
       <WhiteBox>
         <Title>AwesomeNote</Title>
         <h3>로그인</h3>
-        <SignForm onSubmit={handleSubmit(LoginPost)}>
+        <SignForm onSubmit={handleSubmit(handlePost)}>
           <SignInput
             {...register("loginId", { required: true, minLength: 1 })}
             placeholder="Login ID"

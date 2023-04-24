@@ -16,6 +16,7 @@ const router = createBrowserRouter([
     element: <App />,
 
     children: [
+      { path: "", element: <Note /> },
       {
         path: "/page/:teamId",
         element: <RefTeamNotesPage />,

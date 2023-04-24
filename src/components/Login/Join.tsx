@@ -19,15 +19,28 @@ export function Join() {
     handleSubmit,
     getValues,
     formState: { errors },
-    setError,
   } = useForm<Form>();
+  const navigate = useNavigate();
+
+  const handlePost = (data: Form) => {
+    onPost(data)
+      .then((res) => {
+        console.log(res);
+        window.alert(`회원가입 완료`);
+        navigate(`/login`);
+      })
+      .catch((error) => {
+        window.alert(`회원가입 실패`);
+        console.log(error);
+      });
+  };
 
   return (
     <Layout>
       <WhiteBox>
         <Title>AwesomeNote</Title>
         <h3>회원가입</h3>
-        <SignForm onSubmit={handleSubmit(onPost)}>
+        <SignForm onSubmit={handleSubmit(handlePost)}>
           <SignInput
             {...register("nickname", {
               required: "name is requred",
