@@ -10,26 +10,8 @@ import {
   Title,
   WhiteBox,
 } from "../StyleComponent/SignStyle";
-
-interface Form {
-  errors: {
-    email: {
-      message: string;
-    };
-  };
-  nickname: string;
-  loginId: string;
-  password: string;
-  passwordCheck: string;
-  extraError?: string;
-  email: string;
-}
-
-interface ApiForm {
-  nickname: string;
-  loginId: string;
-  password: string;
-}
+import { Form } from "@/interfaces/CommonInterface";
+import { onPost } from "@/apis/Api";
 
 export function Join() {
   const {
@@ -39,25 +21,6 @@ export function Join() {
     formState: { errors },
     setError,
   } = useForm<Form>();
-
-  const navigate = useNavigate();
-  const onPost = (data: Form) => {
-    axios
-      .post<ApiForm>("http://localhost:8080/api/v1/signup", data, {
-        headers: { ContentType: "application/json" },
-      })
-      .then((res) => {
-        window.alert(`회원가입 완료`);
-        navigate(`/login`);
-      })
-      .catch((error) => {
-        window.alert(`회원가입 실패`);
-        console.log(error);
-      });
-
-    setError("extraError", { message: "서버 닫힘" });
-  };
-  console.log(errors);
 
   return (
     <Layout>

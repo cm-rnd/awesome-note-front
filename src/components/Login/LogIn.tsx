@@ -8,26 +8,15 @@ import {
   Title,
   WhiteBox,
 } from "../StyleComponent/SignStyle";
-import { useNavigate } from "react-router";
-import axios from "axios";
-import { useRecoilState } from "recoil";
-import { userInfoState } from "@/atoms/atoms";
+
 import { LoginFormData } from "@/interfaces/CommonInterface";
 import { LoginPost } from "@/apis/Api";
-
-interface SessionData {
-  loginId: string;
-  nickname: string;
-  role: string;
-  token: string;
-}
 
 export function LogIn() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
   } = useForm<LoginFormData>();
 
   return (

@@ -60,3 +60,23 @@ export interface LoginFormData {
   password: string;
   extraError?: string;
 }
+
+export interface Form {
+  errors: {
+    email: {
+      message: string;
+    };
+  };
+  nickname: string;
+  loginId: string;
+  password: string;
+  passwordCheck: string;
+  extraError?: string;
+  email: string;
+}
+
+export interface ApiForm {
+  nickname: string;
+  loginId: string;
+  password: string;
+}

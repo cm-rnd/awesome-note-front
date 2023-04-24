@@ -1,5 +1,10 @@
 import { userInfoState } from "@/atoms/atoms";
-import { FolderNameForm, LoginFormData } from "@/interfaces/CommonInterface";
+import {
+  ApiForm,
+  FolderNameForm,
+  Form,
+  LoginFormData,
+} from "@/interfaces/CommonInterface";
 import axios from "axios";
 
 import { useNavigate } from "react-router";
@@ -264,5 +269,21 @@ export const LoginPost = (data: LoginFormData) => {
       window.alert("로그인 실패");
       console.log(error);
       location.reload();
+    });
+};
+
+export const onPost = (data: Form) => {
+  const navigate = useNavigate();
+  axios
+    .post<ApiForm>("http://localhost:8080/api/v1/signup", data, {
+      headers: { ContentType: "application/json" },
+    })
+    .then((res) => {
+      window.alert(`회원가입 완료`);
+      navigate(`/login`);
+    })
+    .catch((error) => {
+      window.alert(`회원가입 실패`);
+      console.log(error);
     });
 };
